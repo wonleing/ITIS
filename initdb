@@ -1,0 +1,3 @@
+drop table login;
+create table login (uname varchar(20) primary key, passwd varchar(20));
+insert into login values("username", "password");
