@@ -1,7 +1,7 @@
 #!/bin/bash
 source server.conf
 
-echo check ldap path: $ldap_path
+echo "check files in ldap path: $ldap_path"
 ls $ldap_path
 echo "check ldap dn, user name and password: $ldap_com, $ldap_uname, *****"
 grep "$ldap_uname" /etc/openldap/slapd.conf
@@ -17,3 +17,17 @@ grep ^Listen /etc/httpd/conf/httpd.conf
 ls $apache_path
 nc localhost $apache_port < ~/.bashrc 2>&1 | grep "400 Bad Request"
 echo If you see "bad request", that means the port is right.
+
+echo check samba share: Name $share_name, Path $share_path
+smbclient -N -L //localhost | grep "Public samba share"
+
+echo "check files in subversion path: $svn_path/$svn_repo"
+ls $svn_path/$svn_repo
+echo "you can also check svn in http://localhost:$apache_port/$svn_repo/$svn_repo"
+
+echo "check tasks in daily cronjob. daily script(if exist):$backup_daily"
+ls /etc/cron.daily/
+echo "check tasks in monthly cronjob. monthly script(if exist):$backup_monthly"
+ls /etc/cron.monthly/
+
+echo Check completed!

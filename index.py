@@ -6,7 +6,7 @@ import sqlite3
 class Index(object):
     def __init__(self):
         global logined
-        logined=1
+        logined=0
 
     @cherrypy.expose
     def index(self):
