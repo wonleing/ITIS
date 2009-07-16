@@ -1,0 +1,19 @@
+#!/bin/bash
+source server.conf
+
+echo check ldap path: $ldap_path
+ls $ldap_path
+echo "check ldap dn, user name and password: $ldap_com, $ldap_uname, *****"
+grep "$ldap_uname" /etc/openldap/slapd.conf
+grep "rootpw" /etc/openldap/slapd.conf
+
+echo check mysql path: $database_path
+grep datadir /etc/my.cnf
+ls $database_path
+
+echo check apache rootdir and port: $apache_path, $apache_port
+grep ^DocumentRoot /etc/httpd/conf/httpd.conf
+grep ^Listen /etc/httpd/conf/httpd.conf
+ls $apache_path
+nc localhost $apache_port < ~/.bashrc 2>&1 | grep "400 Bad Request"
+echo If you see "bad request", that means the port is right.
