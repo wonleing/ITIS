@@ -5,5 +5,26 @@ source application.conf
 
 ((`id -u` !=0 )) && echo "You need to be root to run create project script!" && exit
 (($# != 2)) && echo "Usage: ./$0 project_name application_name!" && exit
-echo ./$0 $1 $2
-echo done!!!!!!!!!!!!!!!!!!!!
+case "$2" in
+  ldap)
+    echo LDAP..$2;;
+  samba)
+    ;;
+  MediaWiki)
+    ;;
+  Wordpress)
+    ;;
+  Bugzilla)
+    ;;
+  Sugarcrm)
+    ;;
+  Dotproject)
+    ;;
+  Orangehrm)
+    ;;
+  Drupal)
+    ;;
+  *)
+    echo application $2 is not defined
+    exit 1;;
+esac
