@@ -1,5 +1,5 @@
 <?php
-// created: 2009-07-18 07:12:41
+// created: 2009-07-17 20:56:53
 $sugar_config = array (
   'admin_access_control' => false,
   'admin_export_only' => false,
@@ -30,11 +30,11 @@ $sugar_config = array (
   'datef' => 'm/d/Y',
   'dbconfig' => 
   array (
-    'db_host_name' => '127.0.0.1',
+    'db_host_name' => 'localhost',
     'db_host_instance' => 'SQLEXPRESS',
-    'db_user_name' => 'sugaruser',
-    'db_password' => 'secret',
-    'db_name' => 'sugarcrm',
+    'db_user_name' => 'sugar_dbuser',
+    'db_password' => 'sugar_dbpwd',
+    'db_name' => 'sugar_dbname',
     'db_type' => 'mysql',
   ),
   'dbconfigoption' => 
@@ -257,7 +257,7 @@ $sugar_config = array (
   'timef' => 'H:i',
   'tmp_dir' => 'cache/xml/',
   'translation_string_prefix' => false,
-  'unique_key' => '8f0f9b6c505368fc8843d319e56ac02f',
+  'unique_key' => '78dffacef6dfc4eca96fbfe41859d205',
   'upload_badext' => 
   array (
     0 => 'php',
