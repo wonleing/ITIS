@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-import cherrypy,os,pam,sqlite3
+import cherrypy,os,pam,sqlite3,time
 from genshi.template import TemplateLoader
 
 class Index(object):
@@ -34,7 +34,6 @@ class Index(object):
 
     @cherrypy.expose
     def Serverconfig(object):
-        global logined
         if logined:
             global LANG,THEME
             if LANG=="cn":
@@ -76,7 +75,6 @@ class Index(object):
 
     @cherrypy.expose
     def doConfig(self, ldap_1=None, ldap_2=None, ldap_3=None, ldap_4=None, ldap_5=None, database_1=None, database_2=None, database_3=None, apache_1=None, apache_2=None, share_1=None, share_2=None, svn_1=None, svn_2=None, backup_1=None, backup_2=None):
-        global logined
         if ldap_1==None or ldap_2==None or ldap_3==None or ldap_4==None or ldap_5==None or database_1==None or database_2==None or database_3==None or apache_1==None or apache_2==None or share_1==None or  share_2==None or svn_1==None or svn_2==None:
             raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
@@ -105,14 +103,30 @@ class Index(object):
 
     @cherrypy.expose
     def Newproject(self):
-        global logined
         if logined:
             global LANG
             if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'button_ok':lang.button_ok.decode("utf-8"),
+            cx = sqlite3.connect("db")
+            cu = cx.cursor()
+            cu.execute("select * from project")
+            result = cu.fetchall()
+            cu.execute("select appname from application")
+            result2 = cu.fetchall()
+            cx.close()
+            data = {'pjs':result,
+                    'items':result2,
+                    'project_title':lang.project_title.decode("utf-8"),
+                    'project_exist':lang.project_exist.decode("utf-8"),
+                    'project_applist':lang.project_applist.decode("utf-8"),
+                    'pj_text1':lang.pj_text1.decode("utf-8"),
+                    'pj_text2':lang.pj_text2.decode("utf-8"),
+                    'pj_text3':lang.pj_text3.decode("utf-8"),
+                    'pj_text4':lang.pj_text4.decode("utf-8"),
+                    'pj_text5':lang.pj_text5.decode("utf-8"),
+                    'button_ok':lang.button_ok.decode("utf-8"),
                     'button_cancel':lang.button_cancel.decode("utf-8"),
                     'link_serverconf':lang.link_serverconf.decode("utf-8"),
                     'link_newpro':lang.link_newpro.decode("utf-8"),
@@ -122,10 +136,25 @@ class Index(object):
         else:
             raise cherrypy.HTTPRedirect("index")
 
+    @cherrypy.expose
+    def doProject(self, newpj_1=None, newpj_2=None, newpj_3=None, newpj_4=None, applist=None):
+        if newpj_1==None:
+           raise cherrypy.HTTPRedirect("Statusfail")
+        if logined:
+            ctime = time.strftime("%F")
+            cx = sqlite3.connect("db")
+            cu = cx.cursor()
+            cu.execute("insert into project values ('%s','%s','%s','%s','%s')" %(newpj_1, newpj_2, newpj_3, newpj_4, ctime))
+            cx.commit()
+            cx.close()
+            for app in applist:
+              os.system("sudo ./createproject.sh %s %s" %(newpj_1, app))
+            raise cherrypy.HTTPRedirect("Statussuccess")
+        else:
+            raise cherrypy.HTTPRedirect("index")
 
     @cherrypy.expose
     def Application(self):
-        global logined
         if logined:
             global LANG
             if LANG=="cn":
@@ -138,7 +167,7 @@ class Index(object):
             result = cu.fetchall()
             cx.close()
 
-            data = {'apps': result,
+            data = {'apps':result,
                     'application_title':lang.application_title.decode("utf-8"),
                     'app_text1':lang.app_text1.decode("utf-8"),
                     'app_text2':lang.app_text2.decode("utf-8"),
@@ -159,6 +188,8 @@ class Index(object):
 
     @cherrypy.expose
     def doApp(self, MediaWiki_1=None, MediaWiki_2=None, MediaWiki_3=None, MediaWiki_4=None, MediaWiki_5=None, MediaWiki_6=None, Wordpress_1=None, Wordpress_2=None, Wordpress_3=None, Wordpress_4=None, Wordpress_5=None, Wordpress_6=None, Bugzilla_1=None, Bugzilla_2=None, Bugzilla_3=None, Bugzilla_4=None, Bugzilla_5=None, Bugzilla_6=None, Sugarcrm_1=None, Sugarcrm_2=None, Sugarcrm_3=None, Sugarcrm_4=None, Sugarcrm_5=None, Sugarcrm_6=None, Dotproject_1=None, Dotproject_2=None, Dotproject_3=None, Dotproject_4=None, Dotproject_5=None, Dotproject_6=None, Orangehrm_1=None, Orangehrm_2=None, Orangehrm_3=None, Orangehrm_4=None, Orangehrm_5=None, Orangehrm_6=None, Drupal_1=None, Drupal_2=None, Drupal_3=None, Drupal_4=None, Drupal_5=None, Drupal_6=None):
+        if MediaWiki_1==None or MediaWiki_2==None or MediaWiki_3==None or Wordpress_1==None or Wordpress_2==None or Wordpress_3==None or Bugzilla_1==None or Bugzilla_2==None or Bugzilla_3==None or Sugarcrm_1==None or Sugarcrm_2==None or Sugarcrm_3==None or Dotproject_1==None or Dotproject_2==None or Dotproject_3==None or Orangehrm_1==None or Orangehrm_2==None or Orangehrm_3==None or Drupal_1==None or Drupal_2==None or Drupal_3==None:
+           raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             f = open("application.conf", "w")
             f.write("mw_dbname=%s\n" %MediaWiki_1)
@@ -211,7 +242,6 @@ class Index(object):
 
     @cherrypy.expose
     def Systemconf(self):
-        global logined
         if logined:
             global LANG
             if LANG=="cn":
@@ -235,6 +265,8 @@ class Index(object):
         
     @cherrypy.expose
     def doSysconf(self, language=None, theme=None):
+        if language==None or theme==None:
+           raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             global LANG
             LANG=language
@@ -245,7 +277,6 @@ class Index(object):
 
     @cherrypy.expose
     def Statussuccess(self):
-        global logined
         if logined:
             global LANG
             if LANG=="cn":
@@ -264,7 +295,6 @@ class Index(object):
 
     @cherrypy.expose
     def Statusfail(self):
-        global logined
         if logined:
             global LANG
             if LANG=="cn":

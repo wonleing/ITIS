@@ -4,53 +4,45 @@
       xmlns:py="http://genshi.edgewall.org/">
 
 <head>
-    <title>$app_title</title>
+    <title>$project_title</title>
     <link rel="stylesheet" href="currentcss" type="text/css"/>
 </head>
 
 <body bgcolor="#cccccc">
 <table bgcolor="#ffffff" width="60%">
+
 <tr><td>
   <xi:include href="navbar.html" />
-	
-<p>$pj_text1 | $pj_text2 | $pj_text3 | $pj_text4</p>
-
+<p><b>$project_exist</b></p>
+$pj_text1 | $pj_text2 | $pj_text5 | $pj_text3<br/>
 </td></tr>
 
-<tr> <td>
-<form method="post" action="doApp" border="3">
- <table py:if="apps" >
-     <tr py:for="app in apps">
-         <td size="15">${app[0]}</td>
-         <td><input name="${app[0]}_1" type="text" size="15" maxlength="20" value="${app[1]}" /></td>
-         <td><input name="${app[0]}_2" type="text" size="15" maxlength="20" value="${app[2]}" /></td>
-         <td><input name="${app[0]}_3" type="text" size="15" maxlength="20" value="${app[3]}" /></td>
-         <td><input name="${app[0]}_4" type="text" size="15" maxlength="20" value="${app[4]}" /></td>
-         <td><input name="${app[0]}_5" type="text" size="15" maxlength="20" value="${app[5]}" /></td>
-         <td><input name="${app[0]}_6" type="text" size="15" maxlength="20" value="${app[6]}" /></td>
+<tr><td>
+ <table py:if="pjs" border='1' width="450">
+     <tr py:for="pj in pjs">
+         <td width="90">${pj[0]}</td>
+         <td width="90">${pj[1]}</td>
+         <td width="90">${pj[4]}</td>
+         <td width="180">${pj[2]}</td>
            </tr>
  </table>
+</td></tr>
+
+<tr><td>
+<p><b>$project_title</b></p>
+<form method="post" action="doProject" border="3">
+  $pj_text1<input name="newpj_1" type="text" size="15" maxlength="20" value="" /><br/>
+  $pj_text2<input name="newpj_2" type="text" size="15" maxlength="20" value="" /><br/>
+  $pj_text3<input name="newpj_3" type="text" size="15" maxlength="20" value="" /><br/>
+  $pj_text4<input name="newpj_4" type="text" size="15" maxlength="20" value="" /><br/>
+<p><b>$project_applist</b></p>
+<input type="checkbox" name="applist" value="ldap" /> LDAP<br/>
+<input type="checkbox" name="applist" value="samba" /> Samba Share<br/>
+<input py:if="items" type="checkbox" name="applist" value="$item" py:for="item in items"> $item<br/></input>
 <p><input type="submit" value="$button_ok"/> </p>
 </form>
 </td></tr>
 
-
-<form name="addnode" method="post" action="/doAdd">
-<p>
-Enter node name, make sure the node is accessible on master using ssh without
-passwd<br/>
-<input name="nodename" type="text" size="24" maxlength="60" value=""/>
-</p>
-
-<p>
-<input type="submit" value="Submit" />
-</p>
-</form>
-
-
-
-</td></tr>
 </table>
-
 </body>
 </html>
