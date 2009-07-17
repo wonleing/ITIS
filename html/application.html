@@ -4,33 +4,37 @@
       xmlns:py="http://genshi.edgewall.org/">
 
 <head>
-    <title>My Jobs</title>
+    <title>$application_title</title>
     <link rel="stylesheet" href="currentcss" type="text/css"/>
 </head>
 
 <body bgcolor="#cccccc">
 <table bgcolor="#ffffff" width="60%" >
-<tr> <td>
+<tr><td>
   <xi:include href="navbar.html" />
+
+<p>$app_text1 | $app_text2 | $app_text3 | $app_text4 | $app_text5 | $app_text6 | $app_text7</p>
+
 </td></tr>
 
-
 <tr> <td>
-<p>Welcome $user</p>
- <table py:if="jobs" >
-     <tr py:for="job in reversed(jobs)"> <td>
-         <td>${job[0]}</td>
-         <td>${job[1]}</td>
-         <td>${job[2]}</td>
-         <td>${job[3]}</td>
-         <td bgcolor="lime" py:if="job[4] == 'Running'">${job[4]}</td>
-         <td bgcolor="aqua" py:if="job[4] == 'Pending'">${job[4]}</td>
-         <td bgcolor="green" py:if="job[4] == 'Done'">${job[4]}</td>
-         <td py:if="job[4] == 'Pending'"> <a href="delete_job?id=${job[0]}"> X </a> </td>
-         </td></tr>
+<form method="post" action="doApp" border="3">
+ <table py:if="apps" >
+     <tr py:for="app in apps">
+         <td size="15">${app[0]}</td>
+         <td><input name="${app[0]}_1" type="text" size="15" maxlength="20" value="${app[1]}" /></td>
+         <td><input name="${app[0]}_2" type="text" size="15" maxlength="20" value="${app[2]}" /></td>
+         <td><input name="${app[0]}_3" type="text" size="15" maxlength="20" value="${app[3]}" /></td>
+         <td><input name="${app[0]}_4" type="text" size="15" maxlength="20" value="${app[4]}" /></td>
+         <td><input name="${app[0]}_5" type="text" size="15" maxlength="20" value="${app[5]}" /></td>
+         <td><input name="${app[0]}_6" type="text" size="15" maxlength="20" value="${app[6]}" /></td>
+           </tr>
  </table>
+<p><input type="submit" value="$button_ok"/> </p>
+</form>
 </td></tr>
 
 </table>
+
 </body>
 </html>

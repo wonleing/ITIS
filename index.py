@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-import cherrypy,os,pam
+import cherrypy,os,pam,sqlite3
 from genshi.template import TemplateLoader
 
 class Index(object):
@@ -132,13 +132,80 @@ class Index(object):
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'button_ok':lang.button_ok.decode("utf-8"),
+            cx = sqlite3.connect("db")
+            cu = cx.cursor()
+            cu.execute("select * from application")
+            result = cu.fetchall()
+            cx.close()
+
+            data = {'apps': result,
+                    'application_title':lang.application_title.decode("utf-8"),
+                    'app_text1':lang.app_text1.decode("utf-8"),
+                    'app_text2':lang.app_text2.decode("utf-8"),
+                    'app_text3':lang.app_text3.decode("utf-8"),
+                    'app_text4':lang.app_text4.decode("utf-8"),
+                    'app_text5':lang.app_text5.decode("utf-8"),
+                    'app_text6':lang.app_text6.decode("utf-8"),
+                    'app_text7':lang.app_text7.decode("utf-8"),
+                    'button_ok':lang.button_ok.decode("utf-8"),
                     'button_cancel':lang.button_cancel.decode("utf-8"),
                     'link_serverconf':lang.link_serverconf.decode("utf-8"),
                     'link_newpro':lang.link_newpro.decode("utf-8"),
                     'link_appconf':lang.link_appconf.decode("utf-8"),
                     'link_sysconf':lang.link_sysconf.decode("utf-8")}
             return tl.load('application.html').generate(**data).render()
+        else:
+            raise cherrypy.HTTPRedirect("index")
+
+    @cherrypy.expose
+    def doApp(self, MediaWiki_1=None, MediaWiki_2=None, MediaWiki_3=None, MediaWiki_4=None, MediaWiki_5=None, MediaWiki_6=None, Wordpress_1=None, Wordpress_2=None, Wordpress_3=None, Wordpress_4=None, Wordpress_5=None, Wordpress_6=None, Bugzilla_1=None, Bugzilla_2=None, Bugzilla_3=None, Bugzilla_4=None, Bugzilla_5=None, Bugzilla_6=None, Sugarcrm_1=None, Sugarcrm_2=None, Sugarcrm_3=None, Sugarcrm_4=None, Sugarcrm_5=None, Sugarcrm_6=None, Dotproject_1=None, Dotproject_2=None, Dotproject_3=None, Dotproject_4=None, Dotproject_5=None, Dotproject_6=None, Orangehrm_1=None, Orangehrm_2=None, Orangehrm_3=None, Orangehrm_4=None, Orangehrm_5=None, Orangehrm_6=None, Drupal_1=None, Drupal_2=None, Drupal_3=None, Drupal_4=None, Drupal_5=None, Drupal_6=None):
+        if logined:
+            f = open("application.conf", "w")
+            f.write("mw_dbname=%s\n" %MediaWiki_1)
+            f.write("mw_dbuser=%s\n" %MediaWiki_2)
+            f.write("mw_dbpwd=%s\n" %MediaWiki_3)
+            f.write("mw_adminuser=%s\n" %MediaWiki_4)
+            f.write("mw_adminpwd=%s\n" %MediaWiki_5)
+            f.write("mw_urlbase=%s\n" %MediaWiki_6)
+            f.write("wp_dbname=%s\n" %Wordpress_1)
+            f.write("wp_dbuser=%s\n" %Wordpress_2)
+            f.write("wp_dbpwd=%s\n" %Wordpress_3)
+            f.write("wp_adminuser=%s\n" %Wordpress_4)
+            f.write("wp_adminpwd=%s\n" %Wordpress_5)
+            f.write("wp_urlbase=%s\n" %Wordpress_6)
+            f.write("bz_dbname=%s\n" %Bugzilla_1)
+            f.write("bz_dbuser=%s\n" %Bugzilla_2)
+            f.write("bz_dbpwd=%s\n" %Bugzilla_3)
+            f.write("bz_adminuser=%s\n" %Bugzilla_4)
+            f.write("bz_adminpwd=%s\n" %Bugzilla_5)
+            f.write("bz_urlbase=%s\n" %Bugzilla_6)
+            f.write("sc_dbname=%s\n" %Sugarcrm_1)
+            f.write("sc_dbuser=%s\n" %Sugarcrm_2)
+            f.write("sc_dbpwd=%s\n" %Sugarcrm_3)
+            f.write("sc_adminuser=%s\n" %Sugarcrm_4)
+            f.write("sc_adminpwd=%s\n" %Sugarcrm_5)
+            f.write("sc_urlbase=%s\n" %Sugarcrm_6)
+            f.write("dp_dbname=%s\n" %Dotproject_1)
+            f.write("dp_dbuser=%s\n" %Dotproject_2)
+            f.write("dp_dbpwd=%s\n" %Dotproject_3)
+            f.write("dp_adminuser=%s\n" %Dotproject_4)
+            f.write("dp_adminpwd=%s\n" %Dotproject_5)
+            f.write("dp_urlbase=%s\n" %Dotproject_6)
+            f.write("oh_dbname=%s\n" %Orangehrm_1)
+            f.write("oh_dbuser=%s\n" %Orangehrm_2)
+            f.write("oh_dbpwd=%s\n" %Orangehrm_3)
+            f.write("oh_adminuser=%s\n" %Orangehrm_4)
+            f.write("oh_adminpwd=%s\n" %Orangehrm_5)
+            f.write("oh_urlbase=%s\n" %Orangehrm_6)
+            f.write("dr_dbname=%s\n" %Drupal_1)
+            f.write("dr_dbuser=%s\n" %Drupal_2)
+            f.write("dr_dbpwd=%s\n" %Drupal_3)
+            f.write("dr_adminuser=%s\n" %Drupal_4)
+            f.write("dr_adminpwd=%s\n" %Drupal_5)
+            f.write("dr_urlbase=%s\n" %Drupal_6)
+            f.close()
+            os.system("sudo ./appconf.sh")
+            raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
 
