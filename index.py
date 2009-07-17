@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*- 
+# -*- coding:utf-8 -*-
 import cherrypy,os,pam,sysconfig
 from genshi.template import TemplateLoader
 
@@ -13,12 +13,13 @@ class Index(object):
             import language.cn as lang
         else:
             import language.en as lang
+        #return lang.login_title
         data = {'login_title':lang.login_title,
                 'uname':lang.username,
                 'passwd':lang.password,
                 'button_ok':lang.button_ok,
                 'button_cancel':lang.button_cancel}
-        return tl.load('login.html').generate(**data).render()
+        return tl.load('login.html').generate(**data).render(encoding="UTF-8")
 
     @cherrypy.expose
     def doLogin(self, username=None, password=None):
@@ -148,7 +149,11 @@ class Index(object):
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {
+            data = {'sysconf_title':lang.sysconf_title,
+                    'sys_lang':lang.sys_lang,
+                    'sys_css':lang.sys_css,
+                    'css_type1':lang.css_type1,
+                    'css_type2':lang.css_type2,
                     'button_ok':lang.button_ok,
                     'button_cancel':lang.button_cancel,
                     'link_serverconf':lang.link_serverconf,
@@ -160,9 +165,12 @@ class Index(object):
             raise cherrypy.HTTPRedirect("index")
         
     @cherrypy.expose
-    def doSysconf(language=None, theme=None):
+    def doSysconf(self, language=None, theme=None):
         if logined:
-            sysconfig.update({'LANG': language, 'THEME': theme})
+            f = open("sysconfig.py", "w")
+            f.write('LANG = \"%s\"\n' %language)
+            f.write('THEME = \"%s\"\n' %theme)
+            f.close()
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")

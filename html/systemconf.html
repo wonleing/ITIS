@@ -12,21 +12,21 @@
 <table bgcolor="#ffffff" width="60%" >
 <tr> <td>
   <xi:include href="navbar.html" />
-</td></tr>
-<form  name="language" method="post" action="doLang">
-  <select name="selectlang">
+<form  name="systemsetting" method="post" action="doSysconf">
+  $sys_lang<select name="language">
     <option value="en">English</option>
     <option value="cn">简体中文</option>
     English
   </select>
-</form>
-<form  name="csstype" method="post" action="doLang">
-  <select name="selectcss">
+  <br/>
+  $sys_css<select name="theme">
     <option value="css1">$css_type1</option>
     <option value="css2">$css_type2</option>
     $css_type1
   </select>
+  <p><input type="submit" value="$button_ok"/><input type="reset" value="$button_cancel"/></p>
 </form>
+</td></tr>
 </table>
 </body>
 </html>
