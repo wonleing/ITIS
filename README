@@ -2,7 +2,7 @@ Get this project with:
 git clone git@github.com:wonleing/ITIS.git
 
 Setup and start webserver with:
-./setup.sh <username> <password>
+./setup.sh
 
 Then you can go to http://127.0.0.1:8080 to manage your Fedora 10 server!
 
