@@ -1,79 +1,82 @@
 # -*- coding:utf-8 -*- 
-import cherrypy,os,sqlite3
+import cherrypy,os,pam,sysconfig
 from genshi.template import TemplateLoader
 
 class Index(object):
     def __init__(self):
         global logined
-        logined=0
+        logined=1
 
     @cherrypy.expose
     def index(self):
-        data = {}
+        if sysconfig.LANG=="cn":
+            import language.cn as lang
+        else:
+            import language.en as lang
+        data = {'login_title':lang.login_title,
+                'uname':lang.username,
+                'passwd':lang.password,
+                'button_ok':lang.button_ok,
+                'button_cancel':lang.button_cancel}
         return tl.load('login.html').generate(**data).render()
 
     @cherrypy.expose
     def doLogin(self, username=None, password=None):
-        cx = sqlite3.connect("db1")
-        cu = cx.cursor()
-        cu.execute("select count(*) from login where uname=\"%s\"" %username)
-        count = cu.fetchall()[0][0]
-        if (username != "") and count:
-            cu.execute("select passwd from login where uname=\"%s\"" %username)
-            passwd = cu.fetchall()[0][0]
-            if passwd == password:
-                global logined
-                logined=1
-                raise cherrypy.HTTPRedirect("Firstconf")
-            else:
-                raise cherrypy.HTTPRedirect("Loginfail")
+        result = pam.authenticate(username=username, password=password, service='login')
+        if result:
+            global logined
+            logined=1
+            raise cherrypy.HTTPRedirect("Serverconfig")
         else:
-            raise cherrypy.HTTPRedirect("Loginfail")
+            raise cherrypy.HTTPRedirect("index")
+
 
     @cherrypy.expose
-    def Loginfail(self):
-        time.sleep(3)
-        raise cherrypy.HTTPRedirect("index")
-
-    @cherrypy.expose
-    def Firstconf(object):
+    def Serverconfig(object):
         global logined
         if logined:
-            return '''
-        <form action="confConfirm" method="post">
-        <p>LDAPè®¾ç½®</p>
-           ?°æ?®å?è·¯å?<input type="text" name="ldap_1" value="/var/lib/ldap" size="30" maxlength="40"/></br>
-           ?¬å?¸å????<input type="text" name="ldap_2" value="itis.com" size="30" maxlength="40"/></br>
-           ?®ä»¶????<input type="text" name="ldap_3" value="itis.com" size="30" maxlength="40"/></br>
-           ç®¡ç?????¨æ?·å??<input type="text" name="ldap_4" value="Manager" size="30" maxlength="40"/></br>
-           ç®¡ç????å¯???<input type="text" name="ldap_5" value="secret" size="30" maxlength="40"/></br>
-        <p>?°æ?®å?è®¾ç½®</p>
-           ?°æ?®å?è·¯å?<input type="text" name="database_1" value="/var/lib/mysql" size="30" maxlength="40"/></br>
-           ç®¡ç?????¨æ?·å??<input type="text" name="database_2" value="root" size="30" maxlength="40"/></br>
-           ç®¡ç????å¯???<input type="text" name="database_3" value="secret" size="30" maxlength="40"/></br>
-        <p>Apacheè®¾ç½®</p>
-           è·¯å?<input type="text" name="apache_1" value="/var/www" size="30" maxlength="40"/></br>
-           ç«¯å??input type="text" name="apache_2" value="80" size="30" maxlength="40"/></br>
-        <p>?±äº«è®¾ç½®</p>
-           ?±äº«?®å?<input type="text" name="share_1" value="/var/share" size="30" maxlength="40"/></br>
-           ?±äº«??ç§?input type="text" name="share_2" value="share" size="30" maxlength="40"/></br>
-        <p>Subversionè®¾ç½®</p>
-           ?°æ?®å?è·¯å?<input type="text" name="svn_1" value="/var/www/svn" size="30" maxlength="40"/></br>
-           ??????ç§?input type="text" name="svn_2" value="repos" size="30" maxlength="40"/></br>
-        <p>å¤?ä»½ç???/p>
-           æ¯??¥å?ä»½è????input type="text" name="backup_1" value="" size="30" maxlength="40"/></br>
-           æ¯???å¤?ä»½è????input type="text" name="backup_2" value="" size="30" maxlength="40"/></br>
-        <p><input type="submit" value="ç¡®å?"/><input type="reset" value="?¢å?é»?è®?/></p>
-        </form>
-        '''
+            if sysconfig.LANG=="cn":
+                import language.cn as lang
+            else:
+                import language.en as lang
+            data = {'serverconf_title':lang.serverconf_title,
+                    'ldap_setting':lang.ldap_setting,
+                    'ldap_path':lang.ldap_path,
+                    'ldap_com':lang.ldap_com,
+                    'ldap_mail':lang.ldap_mail,
+                    'ldap_user':lang.ldap_user,
+                    'ldap_pwd':lang.ldap_pwd,
+                    'db_setting':lang.db_setting,
+                    'db_path':lang.db_path,
+                    'db_user':lang.db_user,
+                    'db_pwd':lang.db_pwd,
+                    'apache_setting':lang.apache_setting,
+                    'apache_path':lang.apache_path,
+                    'apache_port':lang.apache_port,
+                    'share_setting':lang.share_setting,
+                    'share_path':lang.share_path,
+                    'share_name':lang.share_name,
+                    'svn_setting':lang.svn_setting,
+                    'svn_path':lang.svn_path,
+                    'svn_repo':lang.svn_repo,
+                    'backup_setting':lang.backup_setting,
+                    'backup_daily':lang.backup_daily,
+                    'backup_monthly':lang.backup_monthly,
+                    'button_ok':lang.button_ok,
+                    'button_cancel':lang.button_cancel,
+                    'link_serverconf':lang.link_serverconf,
+                    'link_newpro':lang.link_newpro,
+                    'link_appconf':lang.link_appconf,
+                    'link_sysconf':lang.link_sysconf}
+            return tl.load('serverconfig.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
 
     @cherrypy.expose
-    def confConfirm(self, ldap_1=None, ldap_2=None, ldap_3=None, ldap_4=None, ldap_5=None, database_1=None, database_2=None, database_3=None, apache_1=None, apache_2=None, share_1=None, share_2=None, svn_1=None, svn_2=None, backup_1=None, backup_2=None):
+    def doConfig(self, ldap_1=None, ldap_2=None, ldap_3=None, ldap_4=None, ldap_5=None, database_1=None, database_2=None, database_3=None, apache_1=None, apache_2=None, share_1=None, share_2=None, svn_1=None, svn_2=None, backup_1=None, backup_2=None):
         global logined
         if ldap_1==None or ldap_2==None or ldap_3==None or ldap_4==None or ldap_5==None or database_1==None or database_2==None or database_3==None or apache_1==None or apache_2==None or share_1==None or  share_2==None or svn_1==None or svn_2==None:
-            raise cherrypy.HTTPRedirect("Firstconf")
+            raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             f = open("server.conf", "w")
             f.write("ldap_path=%s\n" %ldap_1)
@@ -93,66 +96,116 @@ class Index(object):
             f.write("backup_daily=%s\n" %backup_1)
             f.write("backup_monthly=%s\n" %backup_2)
             f.close()
-            os.system("./serverconf.sh")
-            return'''
-            <html><body>
-            <p>Server??ç½®å?æ¯?ï¼?ç¨?????ç½®è?ªå?¨ç????</p></br></br></br>
-            <p><a href="/Newproject">?°å»ºé¡¹ç?®è®¾ç½?/a>
-            <p><a href="/Application">è¿?è¡?åº??¨è®¾ç½?/a>
-            <p><a href="/Systemconf">è¿?è¡?ç³»ç?è®¾ç½®</a>
-            </body></html>
-            '''
+            os.system("sudo ./serverconf.sh")
+            raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
 
     @cherrypy.expose
     def Newproject(self):
-        """TBD: use sqlite to store the data. But, what is this page used for???"""
         global logined
         if logined:
-            return'''
-            <html><body>
-            <p>å¾?å»ºä¸­...</p></br></br></br>
-            <p><a href="/Firstconf">è¿?è¡?Serveré¦?æ¬¡è®¾ç½?/a>
-            <p><a href="/Application">è¿?è¡?åº??¨è®¾ç½?/a>
-            <p><a href="/Systemconf">è¿?è¡?ç³»ç?è®¾ç½®</a>
-            </body></html>
-            '''
+            if sysconfig.LANG=="cn":
+                import language.cn as lang
+            else:
+                import language.en as lang
+            data = {
+                    'button_ok':lang.button_ok,
+                    'button_cancel':lang.button_cancel,
+                    'link_serverconf':lang.link_serverconf,
+                    'link_newpro':lang.link_newpro,
+                    'link_appconf':lang.link_appconf,
+                    'link_sysconf':lang.link_sysconf}
+            return tl.load('newproject.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
 
+
     @cherrypy.expose
     def Application(self):
-        """TBD: use sqlite to store the data. Seems only store username and password?"""
         global logined
         if logined:
-            return'''
-            <html><body>
-            <p>å¾?å»ºä¸­...</p></br></br></br>
-            <p><a href="/Firstconf">è¿?è¡?Serveré¦?æ¬¡è®¾ç½?/a>
-            <p><a href="/Newproject">?°å»ºé¡¹ç?®è®¾ç½?/a>
-            <p><a href="/Systemconf">è¿?è¡?ç³»ç?è®¾ç½®</a>
-            </body></html>
-            '''
+            if sysconfig.LANG=="cn":
+                import language.cn as lang
+            else:
+                import language.en as lang
+            data = {
+                    'button_ok':lang.button_ok,
+                    'button_cancel':lang.button_cancel,
+                    'link_serverconf':lang.link_serverconf,
+                    'link_newpro':lang.link_newpro,
+                    'link_appconf':lang.link_appconf,
+                    'link_sysconf':lang.link_sysconf}
+            return tl.load('application.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
 
     @cherrypy.expose
     def Systemconf(self):
-        """TBD: use sqlite or just files to store the data. But this page seems useless"""
         global logined
         if logined:
-            return'''
-            <html><body>
-            <p>å¾?å»ºä¸­...</p></br></br></br>
-            <p><a href="/Firstconf">è¿?è¡?Serveré¦?æ¬¡è®¾ç½?/a>
-            <p><a href="/Newproject">?°å»ºé¡¹ç?®è®¾ç½?/a>
-            <p><a href="/Application">è¿?è¡?åº??¨è®¾ç½?/a>
-            </body></html>
-            '''
+            if sysconfig.LANG=="cn":
+                import language.cn as lang
+            else:
+                import language.en as lang
+            data = {
+                    'button_ok':lang.button_ok,
+                    'button_cancel':lang.button_cancel,
+                    'link_serverconf':lang.link_serverconf,
+                    'link_newpro':lang.link_newpro,
+                    'link_appconf':lang.link_appconf,
+                    'link_sysconf':lang.link_sysconf}
+            return tl.load('systemconf.html').generate(**data).render()
+        else:
+            raise cherrypy.HTTPRedirect("index")
+        
+    @cherrypy.expose
+    def doSysconf(language=None, theme=None):
+        if logined:
+            sysconfig.update({'LANG': language, 'THEME': theme})
+            raise cherrypy.HTTPRedirect("Statussuccess")
+        else:
+            raise cherrypy.HTTPRedirect("index")
+
+    @cherrypy.expose
+    def Statussuccess(self):
+        global logined
+        if logined:
+            if sysconfig.LANG=="cn":
+                import language.cn as lang
+            else:
+                import language.en as lang
+            data = {'status_title':lang.status_title_success,
+                    'config_status':lang.config_status_success,
+                    'link_serverconf':lang.link_serverconf,
+                    'link_newpro':lang.link_newpro,
+                    'link_appconf':lang.link_appconf,
+                    'link_sysconf':lang.link_sysconf}
+            return tl.load('confstatus.html').generate(**data).render()
+        else:
+            raise cherrypy.HTTPRedirect("index")
+
+    @cherrypy.expose
+    def Statusfail(self):
+        global logined
+        if logined:
+            if sysconfig.LANG=="cn":
+                import language.cn as lang
+            else:
+                import language.en as lang
+            data = {'status_title':lang.status_title_fail,
+                    'config_status':lang.config_status_fail,
+                    'link_serverconf':lang.link_serverconf,
+                    'link_newpro':lang.link_newpro,
+                    'link_appconf':lang.link_appconf,
+                    'link_sysconf':lang.link_sysconf}
+            return tl.load('confstatus.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
 
 
-cherrypy.config.update('global.conf')
-cherrypy.quickstart(Index())
+
+if __name__ == '__main__':
+    tl = TemplateLoader(['./html'])
+    cherrypy.config.update('global.conf')
+    cherrypy.quickstart(Index())

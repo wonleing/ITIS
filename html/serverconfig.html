@@ -4,7 +4,7 @@
       xmlns:py="http://genshi.edgewall.org/">
 
 <head>
-    <title>Create a new test job</title>
+    <title>$serverconf_title</title>
     <link rel="stylesheet" href="/static/layout.css " type="text/css"/>
 </head>
 
@@ -13,26 +13,31 @@
 <tr><td>
   <xi:include href="navbar.html" />
 	
-<form name="newtest" method="post" action="/doTest">
-
-<p>
-Enter your email address if you want to receive email notifications <br/>
-<input name="email" type="text" size="24" maxlength="60" value=""/>
-</p>
-
-<p>Select node</p>
-<select name="nodename">
-  <option py:for="node in nodes" value="${node}">${node}</option>
-</select>
-
-<p py:if="items">
-Select the items you want to test:<br/>
-         <input type="checkbox" name="items" value="$item"  py:for="item in items"> $item</input>
-</p>
-
-<input type="submit" value="Submit" />
-</form>
-
+<form name="serverconfig" method="post" action="/doConfig">
+        <p>$ldap_setting</p>
+           $ldap_path<input type="text" name="ldap_1" value="/var/lib/ldap" size="30" maxlength="40"/><br/>
+           $ldap_com<input type="text" name="ldap_2" value="itis.com" size="30" maxlength="40"/><br/>
+           $ldap_mail<input type="text" name="ldap_3" value="itis.com" size="30" maxlength="40"/><br/>
+           $ldap_user<input type="text" name="ldap_4" value="Manager" size="30" maxlength="40"/><br/>
+           $ldap_pwd<input type="text" name="ldap_5" value="secret" size="30" maxlength="40"/><br/>
+        <p>$db_setting</p>
+           $db_path<input type="text" name="database_1" value="/var/lib/mysql" size="30" maxlength="40"/><br/>
+           $db_user<input type="text" name="database_2" value="root" size="30" maxlength="40"/><br/>
+           $db_pwd<input type="text" name="database_3" value="secret" size="30" maxlength="40"/><br/>
+        <p>$apache_setting</p>
+           $apache_path<input type="text" name="apache_1" value="/var/www" size="30" maxlength="40"/><br/>
+           $apache_port<input type="text" name="apache_2" value="80" size="30" maxlength="40"/><br/>
+        <p>$share_setting</p>
+           $share_path<input type="text" name="share_1" value="/var/share" size="30" maxlength="40"/><br/>
+           $share_name<input type="text" name="share_2" value="share" size="30" maxlength="40"/><br/>
+        <p>$svn_setting</p>
+           $svn_path<input type="text" name="svn_1" value="/var/www/svn" size="30" maxlength="40"/><br/>
+           $svn_repo<input type="text" name="svn_2" value="repos" size="30" maxlength="40"/><br/>
+        <p>$backup_setting</p>
+           $backup_daily<input type="text" name="backup_1" value="" size="30" maxlength="40"/><br/>
+           $backup_monthly<input type="text" name="backup_2" value="" size="30" maxlength="40"/><br/>
+        <p><input type="submit" value="$button_ok"/><input type="reset" value="$button_cancel"/></p>
+        </form>
 
 </td></tr>
 </table>
