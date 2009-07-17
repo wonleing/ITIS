@@ -50,9 +50,9 @@ if (($?==0));then
 else
   echo "Listen $apache_port" >> /etc/httpd/conf/httpd.conf
 fi
-echo "<html><p>Now apache home directory is $apache_path, using port $apache_port</p>
-<li><a href="$svn_repo/$svn_repo">svn repos</a></li>
-<li><a href="wiki">MediaWiki page</a></li></html>" > $apache_path/index.html
+sed -i "s/^#AddHandler cgi-script .cgi/AddHandler cgi-script .cgi/" /etc/httpd/conf/httpd.conf
+cat html/apacheindex.html echo "<html><p>Now apache home directory is $apache_path, using port $apache_port</p>
+<li><a href="$svn_repo/$svn_repo">svn repos</a></li></html>" > $apache_path/index.html
 
 apachectl restart
 
