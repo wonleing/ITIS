@@ -1,5 +1,6 @@
 #!/bin/bash
 source server.conf
+((`id -u` !=0 )) && echo "You need to be root to run this script!" && exit
 
 echo "check files in ldap path: $ldap_path"
 ls $ldap_path
@@ -10,6 +11,9 @@ grep "rootpw" /etc/openldap/slapd.conf
 echo check mysql path: $database_path
 grep datadir /etc/my.cnf
 ls $database_path
+echo check mysql create table and select with specified user name and password:
+cat createtable | mysql -u $database_uname -p$database_passwd
+echo "use school;select * from teacher;drop database school;" | mysql -u $database_uname -p$database_passwd
 
 echo check apache rootdir and port: $apache_path, $apache_port
 grep ^DocumentRoot /etc/httpd/conf/httpd.conf
