@@ -1,7 +1,7 @@
 #!/bin/bash
 #This script is used to make application.conf take effect. You need to be root to run this!
-source application.conf
-source server.conf
+source /etc/itis/application.conf
+source /etc/itis/server.conf
 ((`id -u` !=0 )) && echo "You need to be root to run application configure script!" && exit
 rpmdir=../rpmbuild
 
@@ -87,7 +87,7 @@ grant all privileges on $sc_dbname.* to $sc_dbuser@localhost;
 flush privileges;" | mysql -u $database_uname -p$database_passwd
   sed -i -e "s/;mbstring\./mbstring\./g" -e "s/EUC-JP/UTF-8/" -e "s/= SJIS/= pass/" -e "s/encoding_translation = Off/encoding_translation = On/" /etc/php.ini
   /etc/init.d/httpd restart
-  sed -e "s/sugar_dbname/$sc_dbname/" -e "s/sugar_dbuser/$sc_dbuser/" -e "s/sugar_dbpwd/$sc_dbpwd/" sugarcrmconf.php > /usr/share/sugarcrm/config.php
+  sed -e "s/sugar_dbname/$sc_dbname/" -e "s/sugar_dbuser/$sc_dbuser/" -e "s/sugar_dbpwd/$sc_dbpwd/" /etc/itis/sugarcrmconf.php > /usr/share/sugarcrm/config.php
   [ -z $sc_urlbase ] || sed -i "s,http://127.0.0.1,$sc_urlbase," /usr/share/sugarcrm/config.php
   firefox http://localhost:$apache_port/$sc_urlbase/sugarcrm/install.php
   sed -i "s/<\/html>/\n<li><a href=\"sugarcrm\">Sugarcrm page<\/a><\/li><\/html>/" $apache_path/index.html

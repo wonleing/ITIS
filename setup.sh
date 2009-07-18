@@ -1,7 +1,10 @@
 #!/bin/bash
 #This script is used for create login username and password.
 ((`id -u` != 0)) && echo "You need to be root!" && exit
-yum install -q -y python-cherrypy python-genshi
+rpm -q python-cherrypy
+(($?==1)) && (echo "Intalling python-cherrypy";yum -q -y python-cherrypy)
+rpm -q python-genshi
+(($?==1)) && (echo "Intalling python-genshi...";yum -q -y python-genshi)
 rm -rf /etc/itis /usr/itis/script
 cp -r lib/* /usr/lib/python2.*/site-packages
 cp -r etc/itis /etc/

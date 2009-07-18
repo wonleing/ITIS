@@ -1,5 +1,5 @@
 #!/bin/bash
-source server.conf
+source /etc/itis/server.conf
 ((`id -u` !=0 )) && echo "You need to be root to run add ldap user script!" && exit
 (($# < 2)) && echo "Usage: ./$0 project_name user_list" && exit
 pjname=$1

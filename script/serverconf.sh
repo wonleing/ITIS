@@ -1,6 +1,6 @@
 #!/bin/bash
 #This script is used to make server.conf take effect. You need to be root to run this!
-source server.conf
+source /etc/itis/server.conf
 
 ((`id -u` !=0 )) && echo "You need to be root to run server configure script!" && exit
 #Shut down SELinux, which block our changing to server configuration

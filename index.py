@@ -78,7 +78,7 @@ class Index(object):
         if ldap_1==None or ldap_2==None or ldap_3==None or ldap_4==None or ldap_5==None or database_1==None or database_2==None or database_3==None or apache_1==None or apache_2==None or share_1==None or  share_2==None or svn_1==None or svn_2==None:
             raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
-            f = open("server.conf", "w")
+            f = open("/etc/itis/server.conf", "w")
             f.write("ldap_path=%s\n" %ldap_1)
             f.write("ldap_com=%s\n" %ldap_2)
             f.write("ldap_mail=%s\n" %ldap_3)
@@ -96,7 +96,7 @@ class Index(object):
             f.write("backup_daily=%s\n" %backup_1)
             f.write("backup_monthly=%s\n" %backup_2)
             f.close()
-            os.system("sudo ./serverconf.sh")
+            os.system("sudo /usr/itis/script/serverconf.sh")
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -149,8 +149,8 @@ class Index(object):
             cx.close()
             for app in applist:
               if app=="ldap":
-                os.system("sudo ./ldapadduser.sh %s %s" %(newpj_2, newpj_4))
-              os.system("sudo ./createproject.sh %s %s" %(newpj_2, app))
+                os.system("sudo /usr/itis/script/ldapadduser.sh %s %s" %(newpj_2, newpj_4))
+              os.system("sudo /usr/itis/script/createproject.sh %s %s" %(newpj_2, app))
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -193,7 +193,7 @@ class Index(object):
         if MediaWiki_1==None or MediaWiki_2==None or MediaWiki_3==None or Wordpress_1==None or Wordpress_2==None or Wordpress_3==None or Bugzilla_1==None or Bugzilla_2==None or Bugzilla_3==None or Sugarcrm_1==None or Sugarcrm_2==None or Sugarcrm_3==None or Dotproject_1==None or Dotproject_2==None or Dotproject_3==None or Orangehrm_1==None or Orangehrm_2==None or Orangehrm_3==None or Drupal_1==None or Drupal_2==None or Drupal_3==None:
            raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
-            f = open("application.conf", "w")
+            f = open("/etc/itis/application.conf", "w")
             f.write("mw_dbname=%s\n" %MediaWiki_1)
             f.write("mw_dbuser=%s\n" %MediaWiki_2)
             f.write("mw_dbpwd=%s\n" %MediaWiki_3)
@@ -237,7 +237,7 @@ class Index(object):
             f.write("dr_adminpwd=%s\n" %Drupal_5)
             f.write("dr_urlbase=%s\n" %Drupal_6)
             f.close()
-            os.system("sudo ./appconf.sh")
+            os.system("sudo /usr/itis/script/appconf.sh")
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
