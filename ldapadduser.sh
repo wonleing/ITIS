@@ -13,8 +13,8 @@ objectClass: top
 objectClass: organizationalUnit\n" > /tmp/ldapcache
 
 for i in $userlist;do
-  grep :$i: /etc/passwd
-  (($?)) && (useradd test -d /home/$i;echo -e "$i\n$i" | passwd $i)
+  grep ^$i: /etc/passwd
+  (($?)) && (useradd $i -d /home/$i;echo -e "$i\n$i" | passwd $i)
   echo -e "dn: uid=$i,ou=$pjname,$dcstring
 uid: $i
 objectClass: account
