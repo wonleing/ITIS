@@ -1,37 +1,112 @@
 #!/bin/bash
 source /etc/itis/server.conf
+source /etc/itis/application.conf
+cache=/tmp/cache
 ((`id -u` !=0 )) && echo "You need to be root to run this script!" && exit
 
-echo "check files in ldap path: $ldap_path"
-ls $ldap_path
-echo "check ldap dn, user name and password: $ldap_com, $ldap_uname, *****"
-grep "$ldap_uname" /etc/openldap/slapd.conf
-grep "rootpw" /etc/openldap/slapd.conf
+check_file()
+{
+  local filename=$1
+  if [ -e $filename ];then
+    echo "Case $Case_NO Passed!"
+  else
+    echo "$filename does not exist.
+    ===Case $Case_NO=== needs double check."
+  fi
+}
 
-echo check mysql path: $database_path
-grep datadir /etc/my.cnf
-ls $database_path
-echo check mysql create table and select with specified user name and password:
+check_keyword()
+{
+  local keyword=$1
+  local filename=$2
+  if [ `ls -l $filename | wc -l` -gt 0 ] && [ `grep $keyword $filename | wc -l` -gt 0 ];then
+    echo "Case $Case_NO Passed!"
+  else
+    echo "There is no \"$keyword\" in $filename.
+    ===Case $Case_NO=== needs double check."
+  fi
+}
+
+echo Start to check service configuration!
+
+Case_NO="check files in ldap path: $ldap_path"
+check_file "$ldap_path/DB_CONFIG"
+Case_NO="check ldap dn, user name and password: $ldap_com, $ldap_uname, *****"
+check_keyword "$ldap_uname" /etc/openldap/slapd.conf
+check_keyword "rootpw" /etc/openldap/slapd.conf
+
+Case_NO="check mysql path: $database_path"
+check_keyword "$database_path" /etc/my.cnf
+check_file "$database_path/mysql.sock"
+Case_NO="check mysql create table and select with specified user name and password:"
 cat createtable | mysql -u $database_uname -p$database_passwd
-echo "use school;select * from teacher;drop database school;" | mysql -u $database_uname -p$database_passwd
+echo "use school;select * from teacher;drop database school;" | mysql -u $database_uname -p$database_passwd > $cache
+check_keyword "leon" $cache
 
-echo check apache rootdir and port: $apache_path, $apache_port
-grep ^DocumentRoot /etc/httpd/conf/httpd.conf
-grep ^Listen /etc/httpd/conf/httpd.conf
-ls $apache_path
-nc localhost $apache_port < ~/.bashrc 2>&1 | grep "400 Bad Request"
-echo If you see "bad request", that means the port is right.
+Case_NO="check apache rootdir and port: $apache_path, $apache_port"
+check_keyword "$apache_path" /etc/httpd/conf/httpd.conf
+check_keyword "$apache_port" /etc/httpd/conf/httpd.conf
+Case_NO="check apache URL and index"
+check_file "$apache_path/index.html"
+nc localhost $apache_port < ~/.bashrc > $cache 2>&1
+check_keyword "400" $cache
 
-echo check samba share: Name $share_name, Path $share_path
-smbclient -N -L //localhost | grep "Public samba share"
+Case_NO="check samba share: Name $share_name, Path $share_path"
+check_keyword "$share_path" /etc/samba/smb.conf
+check_keyword "$share_name" /etc/samba/smb.conf
 
-echo "check files in subversion path: $svn_path/$svn_repo"
-ls $svn_path/$svn_repo
-echo "you can also check svn in http://localhost:$apache_port/$svn_repo/$svn_repo"
+Case_NO="check files in subversion path: $svn_path/$svn_repo"
+check_file "$svn_path/$svn_repo"
 
-echo "check tasks in daily cronjob. daily script(if exist):$backup_daily"
-ls /etc/cron.daily/
-echo "check tasks in monthly cronjob. monthly script(if exist):$backup_monthly"
-ls /etc/cron.monthly/
+Case_NO="check tasks in daily cronjob. daily script(if exist):$backup_daily"
+[ -z $backup_daily ] || check_file "/etc/cron.daily/$backup_daily"
+Case_NO="check tasks in monthly cronjob. monthly script(if exist):$backup_monthly"
+[ -z $backup_monthly ] || check_file "/etc/cron.monthly/$backup_monthly"
 
-echo Check completed!
+Case_NO="database $mw_dbname and its dbuser,dbpassword"
+echo "show databases;" | mysql -u $mw_dbuser -p$mw_dbpwd > $cache
+check_keyword "$mw_dbname" $cache
+
+Case_NO="database $wp_dbname and its dbuser,dbpassword"
+echo "show databases;" | mysql -u $wp_dbuser -p$wp_dbpwd > $cache
+check_keyword "$wp_dbname" $cache
+
+Case_NO="database $bz_dbname and its dbuser,dbpassword"
+echo "show databases;" | mysql -u $bz_dbuser -p$bz_dbpwd > $cache
+check_keyword "$bz_dbname" $cache
+
+Case_NO="database $sc_dbname and its dbuser,dbpassword"
+echo "show databases;" | mysql -u $sc_dbuser -p$sc_dbpwd > $cache
+check_keyword "$sc_dbname" $cache
+
+Case_NO="database $dp_dbname and its dbuser,dbpassword"
+echo "show databases;" | mysql -u $dp_dbuser -p$dp_dbpwd > $cache
+check_keyword "$dp_dbname" $cache
+
+Case_NO="database $oh_dbname and its dbuser,dbpassword"
+echo "show databases;" | mysql -u $oh_dbuser -p$oh_dbpwd > $cache
+check_keyword "$oh_dbname" $cache
+
+Case_NO="database $dr_dbname and its dbuser,dbpassword"
+echo "show databases;" | mysql -u $dr_dbuser -p$dr_dbpwd > $cache
+check_keyword "$dr_dbname" $cache
+
+Case_NO="check create new project"
+echo "select count(*) from project where code='itis';" | sqlite3 /tmp/db > $cache
+check_keyword "1" $cache
+
+Case_NO="check new ldap user and password"
+for i in `ls /home/`;do
+  if [ "$i" != "leon" ];then
+    wget "http://localhost:8080/doLogin?username=$i&password=$i" > /dev/null 2>&1
+    check_file "Serverconfig"
+    rm Serverconfig*
+  fi
+done  
+
+echo Check server configuration completed!
+echo Start to check web application, Please click the links to check!
+
+firefox http://localhost:$apache_port/
+
+echo All check completed!
