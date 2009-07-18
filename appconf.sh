@@ -124,7 +124,6 @@ update mysql.user set Password=password(\"$oh_dbpwd\") where User=\"$oh_dbuser\"
 grant all privileges on $oh_dbname.* to $oh_dbuser@localhost;
 flush privileges;" | mysql -u $database_uname -p$database_passwd
   sed -i -e "s/'orangehrm'/\'$oh_dbpwd\'/" -e "s/hr_mysql/$oh_dbname/" -e "s/root/$oh_dbuser/" /usr/share/orangehrm/lib/confs/Conf.php-distribution
-  sed -i -e "s/'orangehrm'/\'$oh_dbpwd\'/" -e "s/hr_mysql/$oh_dbname/" -e "s/root/$oh_dbuser/" /usr/share/orangehrm/installer/dbConfig.php
   firefox http://localhost:$apache_port/$oh_urlbase/orangehrm/install.php
   sed -i "s/<\/html>/\n<li><a href=\"$oh_urlbase\/orangehrm\">Orangehrm page<\/a><\/li><\/html>/" $apache_path/index.html
 fi
