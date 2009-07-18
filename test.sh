@@ -4,13 +4,9 @@ source application.conf
 source server.conf
 
 ((`id -u` !=0 )) && echo "You need to be root to run application configure script!" && exit
+rpmdir=../rpmbuild
 
-  drdir=$apache_path/drupal
-  [ -z $dr_urlbase ] || (mkdir -p $apache_path/$dr_urlbase; drdir=$apache_path/$dr_urlbase/drupal)
-  ln -s /usr/share/drupal $drdir
-  echo "create database $dr_dbname;
-create user $dr_dbuser@localhost;
-update mysql.user set Password=password(\"$dr_dbpwd\") where User=\"$dr_dbuser\";
-grant all privileges on $dr_dbname.* to $dr_dbuser@localhost;
-flush privileges;" | mysql -u $database_uname -p$database_passwd
 
+sed -i -e "s/dotproject/$dp_dbname/g" -e "s/dp_user/$dp_dbuser/" -e "s/dp_pass/$dp_dbpwd/" /usr/share/dotproject/includes/config-dist.php
+  [ -z $dp_urlbase ] || sed -i "s,= \$baseUrl,= http://127.0.0.1," /usr/share/dotproject/index.php
+  firefox http://localhost:$apache_port/dotproject/install/index.php

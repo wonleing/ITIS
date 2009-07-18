@@ -7,7 +7,7 @@ create table project (pjname varchar(20) primary key, code varchar(20), descript
 insert into application values ("MediaWiki", "mediawiki", "wikiuser", "secret", "sysop", "itis", NULL);
 insert into application values ("Wordpress", "wordpress", "wordpress", "secret", "admin", "itis", NULL);
 insert into application values ("Bugzilla", "bugs", "bugs", "secret", "admin", "itis", NULL);
-insert into application values ("Sugarcrm", "sugacrm", "sugaruser", "secret", "admin", "itis", NULL);
+insert into application values ("Sugarcrm", "sugarcrm", "sugaruser", "secret", "admin", "itis", NULL);
 insert into application values ("Dotproject", "dotproject", "dotproject", "secret", "admin", "itis", NULL);
 insert into application values ("Orangehrm", "orangehrm", "orangehrm", "secret", "admin", "itis", NULL);
 insert into application values ("Drupal", "drupal", "drupal", "secret", "admin", "itis", NULL);

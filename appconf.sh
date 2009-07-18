@@ -3,6 +3,7 @@
 source application.conf
 source server.conf
 ((`id -u` !=0 )) && echo "You need to be root to run application configure script!" && exit
+rpmdir=../rpmbuild
 
 #MediaWiki settings
 rpm -q mediawiki
@@ -68,6 +69,64 @@ flush privileges;" | mysql -u $database_uname -p$database_passwd
   cd -
   rm -rf /tmp/bz_temp
   sed -i "s/<\/html>/\n<li><a href=\"bugzilla\">Bugzilla page<\/a><\/li><\/html>/" $apache_path/index.html
+fi
+
+#Sugarcrm settings
+#No urlbase option. Use it as subdir name.
+rpm -q sugarcrm
+if (($?==1));then
+  rpm -ivh $rpmdir/sugarcrm-*.rpm
+  scdir=$apache_path/sugarcrm
+  [ -z $sc_urlbase ] || (mkdir -p $apache_path/$sc_urlbase; scdir=$apache_path/$sc_urlbase/sugarcrm)
+  chown -R apache:apache /usr/share/sugarcrm
+  ln -s /usr/share/sugarcrm $scdir
+  echo "create database $sc_dbname;
+create user $sc_dbuser@localhost;
+update mysql.user set Password=password(\"$sc_dbpwd\") where User=\"$sc_dbuser\";
+grant all privileges on $sc_dbname.* to $sc_dbuser@localhost;
+flush privileges;" | mysql -u $database_uname -p$database_passwd
+  sed -i -e "s/;mbstring\./mbstring\./g" -e "s/EUC-JP/UTF-8/" -e "s/= SJIS/= pass/" -e "s/encoding_translation = Off/encoding_translation = On/" /etc/php.ini
+  /etc/init.d/httpd restart
+  cp sugarcrmconf.php /usr/share/sugarcrm/config.php
+  firefox http://localhost:$apache_port/$sc_urlbase/sugarcrm/install.php
+  sed -i "s/<\/html>/\n<li><a href=\"$sc_urlbase\/sugarcrm\">Sugarcrm page<\/a><\/li><\/html>/" $apache_path/index.html
+fi
+
+#Dotproject settings
+rpm -q dotproject
+if (($?==1));then
+  rpm -ivh $rpmdir/dotproject-*.rpm
+  dpdir=$apache_path/dotproject
+  chown -R apache:apache /usr/share/dotproject
+  ln -s /usr/share/dotproject $dpdir
+  echo "create database $dp_dbname;
+create user $dp_dbuser@localhost;
+update mysql.user set Password=password(\"$dp_dbpwd\") where User=\"$dp_dbuser\";
+grant all privileges on $dp_dbname.* to $dp_dbuser@localhost;
+flush privileges;" | mysql -u $database_uname -p$database_passwd
+  sed -i -e "s/dotproject/$dp_dbname/g" -e "s/dp_user/$dp_dbuser/" -e "s/dp_pass/$dp_dbpwd/" /usr/share/dotproject/includes/config-dist.php
+  [ -z $dp_urlbase ] || sed -i "s,= \$baseUrl,= $dp_urlbase," /usr/share/dotproject/includes/config-dist.php
+  firefox http://localhost:$apache_port/dotproject/install/index.php
+  sed -i "s/<\/html>/\n<li><a href=\"sugarcrm\">Dotproject page<\/a><\/li><\/html>/" $apache_path/index.html
+fi
+
+#Orangehrm settings
+rpm -q orangehrm
+if (($?==1));then
+  rpm -ivh $rpmdir/orangehrm-*.rpm
+  ohdir=$apache_path/orangehrm
+  [ -z $oh_urlbase ] || (mkdir -p $apache_path/$oh_urlbase; scdir=$apache_path/$oh_urlbase/orangehrm)
+  chown -R apache:apache /usr/share/orangehrm
+  ln -s /usr/share/orangehrm $ohdir
+  echo "create database $oh_dbname;
+create user $oh_dbuser@localhost;
+update mysql.user set Password=password(\"$oh_dbpwd\") where User=\"$oh_dbuser\";
+grant all privileges on $oh_dbname.* to $oh_dbuser@localhost;
+flush privileges;" | mysql -u $database_uname -p$database_passwd
+  sed -i -e "s/'orangehrm'/\'$oh_dbpwd\'/" -e "s/hr_mysql/$oh_dbname/" -e "s/root/$oh_dbuser/" /usr/share/orangehrm/lib/confs/Conf.php-distribution
+  sed -i -e "s/'orangehrm'/\'$oh_dbpwd\'/" -e "s/hr_mysql/$oh_dbname/" -e "s/root/$oh_dbuser/" /usr/share/orangehrm/installer/dbConfig.php
+  firefox http://localhost:$apache_port/$oh_urlbase/orangehrm/install.php
+  sed -i "s/<\/html>/\n<li><a href=\"$oh_urlbase\/orangehrm\">Orangehrm page<\/a><\/li><\/html>/" $apache_path/index.html
 fi
 
 #Drupal settings
