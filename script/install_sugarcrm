@@ -1,0 +1,154 @@
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/sugarcrm/install.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+
+current_step=0&goto=Back&goto=Next
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Referer: http://localhost/sugarcrm/install.php
+Content-Length: 50
+Pragma: no-cache
+Cache-Control: no-cache
+
+checkInstallSystem=true&to_pdf=1&sugar_body_only=1
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/sugarcrm/install.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 63
+
+language=en_us&setup_license_accept=on&current_step=1&goto=Next
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/sugarcrm/install.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 55
+
+install_type=Typical&current_step=2&goto=Back&goto=Next
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/sugarcrm/install.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 56
+
+setup_db_type=mysql&current_step=+3+&goto=Back&goto=Next
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Referer: http://localhost/sugarcrm/install.php
+Content-Length: 340
+Pragma: no-cache
+Cache-Control: no-cache
+
+checkDBSettings=true&to_pdf=1&sugar_body_only=1&setup_db_database_name=sugarcrm&setup_db_host_name=localhost&setup_db_admin_user_name=root&setup_db_admin_password=secret&setup_db_sugarsales_user=sugaruser&setup_db_sugarsales_password=secret&setup_db_sugarsales_password_retype=secret&dbUSRData=provide&demoData=no&to_pdf=1&sugar_body_only=1
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/sugarcrm/install.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 316
+
+setup_db_drop_tables=true&goto=Next&setup_db_database_name=sugarcrm&setup_db_host_name=localhost&setup_db_admin_user_name=root&setup_db_admin_password=secret&dbUSRData=provide&setup_db_sugarsales_user=sugaruser&setup_db_sugarsales_password=secret&setup_db_sugarsales_password_retype=secret&demoData=no&current_step=4
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/sugarcrm/install.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 103
+
+current_step=5&setup_site_admin_password=itis&setup_site_admin_password_retype=itis&goto=Back&goto=Next
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/sugarcrm/install.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 298
+
+default_date_format=m%2Fd%2FY&default_time_format=h%3Aia&currency=USD&default_currency_name=US+Dollars&default_currency_symbol=%24&default_currency_iso4217=USD&default_currency_significant_digits=2&default_number_grouping_seperator=%2C&default_decimal_seperator=.&current_step=6&goto=Back&goto=Next
+=======
+POST /sugarcrm/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/sugarcrm/install.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 24
+
+current_step=7&goto=Next
+=======

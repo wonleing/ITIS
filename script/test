@@ -1,0 +1,15 @@
+#!/bin/bash
+#This script is used to make application.conf take effect. You need to be root to run this!
+source /etc/itis/application.conf
+source /etc/itis/server.conf
+cache=/tmp/cache
+
+chown -R apache:apache /usr/share/sugarcrm
+j=0
+for i in `grep -n "======" install_sugarcrm | cut -d ":" -f1`;do
+    awk "NR>$j && NR<$i" install_sugarcrm > $cache
+    nc localhost 80 < $cache 
+    j=$i
+done
+sed -i "/installer_locked/s/true/false/" /usr/share/sugarcrm/config.php
+
