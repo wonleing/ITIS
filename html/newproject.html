@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+
+<head>
+    <title>Add one node to system</title>
+    <link rel="stylesheet" href="/static/layout.css " type="text/css"/>
+</head>
+
+<body bgcolor="#cccccc">
+<table bgcolor="#ffffff" width="60%">
+<tr><td>
+  <xi:include href="navbar.html" />
+	
+
+
+<form name="addnode" method="post" action="/doAdd">
+<p>
+Enter node name, make sure the node is accessible on master using ssh without
+passwd<br/>
+<input name="nodename" type="text" size="24" maxlength="60" value=""/>
+</p>
+
+<p>
+<input type="submit" value="Submit" />
+</p>
+</form>
+
+
+
+</td></tr>
+</table>
+
+</body>
+</html>

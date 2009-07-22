@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+
+<head>
+    <title>List All Jobs</title>
+    <link rel="stylesheet" href="/static/layout.css " type="text/css"/>
+</head>
+
+<body bgcolor="#cccccc">
+<table bgcolor="#ffffff" width="60%" >
+<tr> <td>
+  <xi:include href="navbar.html" />
+</td></tr>
+
+<tr> <td>
+ <table py:if="jobs" >
+     <tr py:for="job in reversed(jobs)"> <td>
+         <td>${job[0]}</td>
+         <td>${job[1]}</td>
+         <td>${job[2]}</td>
+         <td>${job[3]}</td>
+         <td bgcolor="lime" py:if="job[4] == 'Running'">${job[4]}</td>
+         <td bgcolor="aqua" py:if="job[4] == 'Pending'">${job[4]}</td>
+         <td bgcolor="green" py:if="job[4] == 'Done'">${job[4]}</td>
+         </td></tr>
+ </table>
+</td></tr>
+
+</table>
+</body>
+</html>

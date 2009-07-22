@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+
+<head>
+    <title>Create a new test job</title>
+    <link rel="stylesheet" href="/static/layout.css " type="text/css"/>
+</head>
+
+<body bgcolor="#cccccc">
+<table bgcolor="#ffffff" width="60%" >
+<tr><td>
+  <xi:include href="navbar.html" />
+	
+<form name="newtest" method="post" action="/doTest">
+
+<p>
+Enter your email address if you want to receive email notifications <br/>
+<input name="email" type="text" size="24" maxlength="60" value=""/>
+</p>
+
+<p>Select node</p>
+<select name="nodename">
+  <option py:for="node in nodes" value="${node}">${node}</option>
+</select>
+
+<p py:if="items">
+Select the items you want to test:<br/>
+         <input type="checkbox" name="items" value="$item"  py:for="item in items"> $item</input>
+</p>
+
+<input type="submit" value="Submit" />
+</form>
+
+
+</td></tr>
+</table>
+
+</body>
+</html>

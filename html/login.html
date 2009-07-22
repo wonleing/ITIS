@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+
+<head>
+    <title>$login_title</title>
+    <link rel="stylesheet" href="layout.css " type="text/css"/>
+</head>
+  <body>
+    <h1>$login_title</h1>
+        <form action="doLogin" method="post" border="6">
+        <p>$username</p>
+        <input type="text" name="username" value="" size="15" maxlength="40"/>
+        <p>$password</p>
+        <input type="password" name="password" value="" size="15" maxlength="40"/>
+        <p><input type="submit" value="Submit"/><input type="reset" value="Reset"/></p>
+        </form>
+<form  name="language" method="post" action="doLang">
+  <select name="selectlang">
+    <option value="en">English</option>
+    <option value="cn">简体中文</option>
+    English
+  </select>
+</form>
+<form  name="csstype" method="post" action="doLang">
+  <select name="selectcss">
+    <option value="css1">$css_type1</option>
+    <option value="css2">$css_type2</option>
+    $css_type1
+  </select>
+</form>
+        <p><a href="/Registry">$link_registry</a></p>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>$test_title</title>
+  </head>
+  <body>
+    <h1>$test_title</h1>
+        <p><b>$test_addnode</b></p>
+        <form action="doAddnode" method="post">
+        $test_nodename<input type="text" name="nodename" value="" size="15" maxlength="40"/></br>
+        $test_nodepw<input type="password" name="password" value="" size="15" maxlength="40"/>
+        <p><input type="submit" value="$button_ok"/>
+        </form>
+        <hr>
+        <form action="doTest" method="post">
+        <p><b>$test_starttest</b></p>
+        $test_nodename<select name="select">$test_nodelist</select>
+        <p>$test_package</p>
+        $test_packagelist
+        <p><input type="submit" value="$button_ok"/></p>
+        </form>
+        <p><a href="/Teststatus">$link_status</a></p>
+  </body>
+</html>

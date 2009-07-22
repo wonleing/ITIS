@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>$registry_title</title>
+  </head>
+  <body>
+     <h1>$registry_title</h1>
+        <form action="doRegistry" method="post">
+        <p>$login_name (recommand to use your e-mail)</p>
+        <input type="text" name="username" value="" size="15" maxlength="40"/>
+        <p>$login_password</p>
+        <input type="password" name="password" value="" size="15" maxlength="40"/>
+        <p>$registry_confirm</p>
+        <input type="password" name="password2" value="" size="15" maxlength="40"/>
+        <p><input type="submit" value="$button_ok"/><input type="reset" value="$button_cancel"/></p>
+        </form>
+  </body>
+</html>

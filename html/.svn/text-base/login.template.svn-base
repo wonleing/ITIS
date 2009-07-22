@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>$login_title</title>
+  </head>
+  <body>
+    <h1>$login_title</h1>
+        <form action="doLogin" method="post">
+        <p>$login_name</p>
+        <input type="text" name="username" value="" size="15" maxlength="40"/>
+        <p>$login_password</p>
+        <input type="password" name="password" value="" size="15" maxlength="40"/>
+        <p><input type="submit" value="$button_ok"/><input type="reset" value="$button_cancel"/></p>
+        </form>
+<form  name="language" method="post" action="doLang">
+  <select name="select" id="select">
+    <option value="en">English</option>
+    <option value="cn">简体中文</option>
+    English
+  </select>
+</form>
+        <p><a href="/Registry">$link_registry</a></p>
+  </body>
+</html>
