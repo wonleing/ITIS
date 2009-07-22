@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*- 
-import cherrypy
-import time,os
-import sqlite3
+import cherrypy,os,sqlite3
+from genshi.template import TemplateLoader
 
 class Index(object):
     def __init__(self):
@@ -10,15 +9,8 @@ class Index(object):
 
     @cherrypy.expose
     def index(self):
-        return '''
-        <form action="doLogin" method="post">
-        <p>用户名</p>
-        <input type="text" name="username" value="" size="15" maxlength="40"/>
-        <p>密码</p>
-        <input type="password" name="password" value="" size="10" maxlength="40"/>
-        <p><input type="submit" value="登录"/><input type="reset" value="重置"/></p>
-        </form>
-        '''
+        data = {}
+        return tl.load('login.html').generate(**data).render()
 
     @cherrypy.expose
     def doLogin(self, username=None, password=None):
@@ -50,28 +42,28 @@ class Index(object):
             return '''
         <form action="confConfirm" method="post">
         <p>LDAP设置</p>
-           数据库路径<input type="text" name="ldap_1" value="/var/lib/ldap" size="30" maxlength="40"/></br>
-           公司域名<input type="text" name="ldap_2" value="itis.com" size="30" maxlength="40"/></br>
-           邮件域名<input type="text" name="ldap_3" value="itis.com" size="30" maxlength="40"/></br>
-           管理员用户名<input type="text" name="ldap_4" value="Manager" size="30" maxlength="40"/></br>
-           管理员密码<input type="text" name="ldap_5" value="secret" size="30" maxlength="40"/></br>
-        <p>数据库设置</p>
-           数据库路径<input type="text" name="database_1" value="/var/lib/mysql" size="30" maxlength="40"/></br>
-           管理员用户名<input type="text" name="database_2" value="root" size="30" maxlength="40"/></br>
-           管理员密码<input type="text" name="database_3" value="secret" size="30" maxlength="40"/></br>
+           ?��?��?路�?<input type="text" name="ldap_1" value="/var/lib/ldap" size="30" maxlength="40"/></br>
+           ?��?��????<input type="text" name="ldap_2" value="itis.com" size="30" maxlength="40"/></br>
+           ?�件????<input type="text" name="ldap_3" value="itis.com" size="30" maxlength="40"/></br>
+           管�?????��?��??<input type="text" name="ldap_4" value="Manager" size="30" maxlength="40"/></br>
+           管�????�???<input type="text" name="ldap_5" value="secret" size="30" maxlength="40"/></br>
+        <p>?��?��?设置</p>
+           ?��?��?路�?<input type="text" name="database_1" value="/var/lib/mysql" size="30" maxlength="40"/></br>
+           管�?????��?��??<input type="text" name="database_2" value="root" size="30" maxlength="40"/></br>
+           管�????�???<input type="text" name="database_3" value="secret" size="30" maxlength="40"/></br>
         <p>Apache设置</p>
-           路径<input type="text" name="apache_1" value="/var/www" size="30" maxlength="40"/></br>
-           端口<input type="text" name="apache_2" value="80" size="30" maxlength="40"/></br>
-        <p>共享设置</p>
-           共享目录<input type="text" name="share_1" value="/var/share" size="30" maxlength="40"/></br>
-           共享名称<input type="text" name="share_2" value="share" size="30" maxlength="40"/></br>
+           路�?<input type="text" name="apache_1" value="/var/www" size="30" maxlength="40"/></br>
+           端�??input type="text" name="apache_2" value="80" size="30" maxlength="40"/></br>
+        <p>?�享设置</p>
+           ?�享?��?<input type="text" name="share_1" value="/var/share" size="30" maxlength="40"/></br>
+           ?�享??�?input type="text" name="share_2" value="share" size="30" maxlength="40"/></br>
         <p>Subversion设置</p>
-           数据库路径<input type="text" name="svn_1" value="/var/www/svn" size="30" maxlength="40"/></br>
-           镜像名称<input type="text" name="svn_2" value="repos" size="30" maxlength="40"/></br>
-        <p>备份策略</p>
-           每日备份脚本<input type="text" name="backup_1" value="" size="30" maxlength="40"/></br>
-           每月备份脚本<input type="text" name="backup_2" value="" size="30" maxlength="40"/></br>
-        <p><input type="submit" value="确定"/><input type="reset" value="恢复默认"/></p>
+           ?��?��?路�?<input type="text" name="svn_1" value="/var/www/svn" size="30" maxlength="40"/></br>
+           ??????�?input type="text" name="svn_2" value="repos" size="30" maxlength="40"/></br>
+        <p>�?份�???/p>
+           �??��?份�????input type="text" name="backup_1" value="" size="30" maxlength="40"/></br>
+           �???�?份�????input type="text" name="backup_2" value="" size="30" maxlength="40"/></br>
+        <p><input type="submit" value="确�?"/><input type="reset" value="?��?�?�?/></p>
         </form>
         '''
         else:
@@ -104,10 +96,10 @@ class Index(object):
             os.system("./serverconf.sh")
             return'''
             <html><body>
-            <p>Server配置完毕！稍后配置自动生效</p></br></br></br>
-            <p><a href="/Newproject">新建项目设置</a>
-            <p><a href="/Application">进行应用设置</a>
-            <p><a href="/Systemconf">进行系统设置</a>
+            <p>Server??置�?�?�?�?????置�?��?��????</p></br></br></br>
+            <p><a href="/Newproject">?�建项�?�设�?/a>
+            <p><a href="/Application">�?�?�??�设�?/a>
+            <p><a href="/Systemconf">�?�?系�?设置</a>
             </body></html>
             '''
         else:
@@ -120,10 +112,10 @@ class Index(object):
         if logined:
             return'''
             <html><body>
-            <p>待建中...</p></br></br></br>
-            <p><a href="/Firstconf">进行Server首次设置</a>
-            <p><a href="/Application">进行应用设置</a>
-            <p><a href="/Systemconf">进行系统设置</a>
+            <p>�?建中...</p></br></br></br>
+            <p><a href="/Firstconf">�?�?Server�?次设�?/a>
+            <p><a href="/Application">�?�?�??�设�?/a>
+            <p><a href="/Systemconf">�?�?系�?设置</a>
             </body></html>
             '''
         else:
@@ -136,10 +128,10 @@ class Index(object):
         if logined:
             return'''
             <html><body>
-            <p>待建中...</p></br></br></br>
-            <p><a href="/Firstconf">进行Server首次设置</a>
-            <p><a href="/Newproject">新建项目设置</a>
-            <p><a href="/Systemconf">进行系统设置</a>
+            <p>�?建中...</p></br></br></br>
+            <p><a href="/Firstconf">�?�?Server�?次设�?/a>
+            <p><a href="/Newproject">?�建项�?�设�?/a>
+            <p><a href="/Systemconf">�?�?系�?设置</a>
             </body></html>
             '''
         else:
@@ -152,10 +144,10 @@ class Index(object):
         if logined:
             return'''
             <html><body>
-            <p>待建中...</p></br></br></br>
-            <p><a href="/Firstconf">进行Server首次设置</a>
-            <p><a href="/Newproject">新建项目设置</a>
-            <p><a href="/Application">进行应用设置</a>
+            <p>�?建中...</p></br></br></br>
+            <p><a href="/Firstconf">�?�?Server�?次设�?/a>
+            <p><a href="/Newproject">?�建项�?�设�?/a>
+            <p><a href="/Application">�?�?�??�设�?/a>
             </body></html>
             '''
         else:

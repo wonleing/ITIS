@@ -1,4 +1,5 @@
 #!/bin/bash
-find . -name *.pyc -exec rm -rf {} \;
-rm -rf db1
+rm -rf *.pyc *~
+#find . -name *.pyc -exec rm -rf {} \;
+#rm -rf db
 git status
