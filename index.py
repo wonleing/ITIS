@@ -4,21 +4,18 @@ from genshi.template import TemplateLoader
 
 class Index(object):
     def __init__(self):
-        global logined,LANG,THEME
+        global logined,LANG
         logined=1
         LANG="en"
-        THEME="layout1.css"
 
     @cherrypy.expose
     def index(self):
-        global LANG,THEME
+        global LANG
         if LANG=="cn":
             import language.cn as lang
         else:
             import language.en as lang
-        #return lang.login_title
-        data = {'layout':THEME,
-                'login_title':lang.login_title.decode("utf-8"),
+        data = {'login_title':lang.login_title.decode("utf-8"),
                 'uname':lang.username.decode("utf-8"),
                 'passwd':lang.password.decode("utf-8"),
                 'button_ok':lang.button_ok.decode("utf-8"),
@@ -44,8 +41,7 @@ class Index(object):
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'layout':THEME,
-                    'serverconf_title':lang.serverconf_title.decode("utf-8"),
+            data = {'serverconf_title':lang.serverconf_title.decode("utf-8"),
                     'ldap_setting':lang.ldap_setting.decode("utf-8"),
                     'ldap_path':lang.ldap_path.decode("utf-8"),
                     'ldap_com':lang.ldap_com.decode("utf-8"),
@@ -111,13 +107,12 @@ class Index(object):
     def Newproject(self):
         global logined
         if logined:
-            global LANG,THEME
+            global LANG
             if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'layout':THEME,
-                    'button_ok':lang.button_ok.decode("utf-8"),
+            data = {'button_ok':lang.button_ok.decode("utf-8"),
                     'button_cancel':lang.button_cancel.decode("utf-8"),
                     'link_serverconf':lang.link_serverconf.decode("utf-8"),
                     'link_newpro':lang.link_newpro.decode("utf-8"),
@@ -132,13 +127,12 @@ class Index(object):
     def Application(self):
         global logined
         if logined:
-            global LANG,THEME
+            global LANG
             if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'layout':THEME,
-                    'button_ok':lang.button_ok.decode("utf-8"),
+            data = {'button_ok':lang.button_ok.decode("utf-8"),
                     'button_cancel':lang.button_cancel.decode("utf-8"),
                     'link_serverconf':lang.link_serverconf.decode("utf-8"),
                     'link_newpro':lang.link_newpro.decode("utf-8"),
@@ -152,13 +146,12 @@ class Index(object):
     def Systemconf(self):
         global logined
         if logined:
-            global LANG,THEME
+            global LANG
             if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'layout':THEME,
-                    'sysconf_title':lang.sysconf_title.decode("utf-8"),
+            data = {'sysconf_title':lang.sysconf_title.decode("utf-8"),
                     'sys_lang':lang.sys_lang.decode("utf-8"),
                     'sys_css':lang.sys_css.decode("utf-8"),
                     'css_type1':lang.css_type1.decode("utf-8"),
@@ -176,9 +169,9 @@ class Index(object):
     @cherrypy.expose
     def doSysconf(self, language=None, theme=None):
         if logined:
-            global LANG,THEME
+            global LANG
             LANG=language
-            THEME=theme+".css"
+            os.system("cp html/" + theme + " html/current.css")
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -187,13 +180,12 @@ class Index(object):
     def Statussuccess(self):
         global logined
         if logined:
-            global LANG,THEME
+            global LANG
             if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'layout':THEME,
-                    'status_title':lang.status_title_success.decode("utf-8"),
+            data = {'status_title':lang.status_title_success.decode("utf-8"),
                     'config_status':lang.config_status_success.decode("utf-8"),
                     'link_serverconf':lang.link_serverconf.decode("utf-8"),
                     'link_newpro':lang.link_newpro.decode("utf-8"),
@@ -207,13 +199,12 @@ class Index(object):
     def Statusfail(self):
         global logined
         if logined:
-            global LANG,THEME
+            global LANG
             if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'layout':THEME,
-                    'status_title':lang.status_title_fail.decode("utf-8"),
+            data = {'status_title':lang.status_title_fail.decode("utf-8"),
                     'config_status':lang.config_status_fail.decode("utf-8"),
                     'link_serverconf':lang.link_serverconf.decode("utf-8"),
                     'link_newpro':lang.link_newpro.decode("utf-8"),
