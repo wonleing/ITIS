@@ -1,2 +1,2 @@
-LANG = "cn"
-THEME = "css2"
+LANG = "en"
+THEME = "css1"

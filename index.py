@@ -1,24 +1,28 @@
 # -*- coding:utf-8 -*-
-import cherrypy,os,pam,sysconfig
+import cherrypy,os,pam
 from genshi.template import TemplateLoader
 
 class Index(object):
     def __init__(self):
-        global logined
+        global logined,LANG,THEME
         logined=1
+        LANG="en"
+        THEME="layout1.css"
 
     @cherrypy.expose
     def index(self):
-        if sysconfig.LANG=="cn":
+        global LANG,THEME
+        if LANG=="cn":
             import language.cn as lang
         else:
             import language.en as lang
         #return lang.login_title
-        data = {'login_title':lang.login_title,
-                'uname':lang.username,
-                'passwd':lang.password,
-                'button_ok':lang.button_ok,
-                'button_cancel':lang.button_cancel}
+        data = {'layout':THEME,
+                'login_title':lang.login_title.decode("utf-8"),
+                'uname':lang.username.decode("utf-8"),
+                'passwd':lang.password.decode("utf-8"),
+                'button_ok':lang.button_ok.decode("utf-8"),
+                'button_cancel':lang.button_cancel.decode("utf-8")}
         return tl.load('login.html').generate(**data).render(encoding="UTF-8")
 
     @cherrypy.expose
@@ -31,44 +35,45 @@ class Index(object):
         else:
             raise cherrypy.HTTPRedirect("index")
 
-
     @cherrypy.expose
     def Serverconfig(object):
         global logined
         if logined:
-            if sysconfig.LANG=="cn":
+            global LANG,THEME
+            if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'serverconf_title':lang.serverconf_title,
-                    'ldap_setting':lang.ldap_setting,
-                    'ldap_path':lang.ldap_path,
-                    'ldap_com':lang.ldap_com,
-                    'ldap_mail':lang.ldap_mail,
-                    'ldap_user':lang.ldap_user,
-                    'ldap_pwd':lang.ldap_pwd,
-                    'db_setting':lang.db_setting,
-                    'db_path':lang.db_path,
-                    'db_user':lang.db_user,
-                    'db_pwd':lang.db_pwd,
-                    'apache_setting':lang.apache_setting,
-                    'apache_path':lang.apache_path,
-                    'apache_port':lang.apache_port,
-                    'share_setting':lang.share_setting,
-                    'share_path':lang.share_path,
-                    'share_name':lang.share_name,
-                    'svn_setting':lang.svn_setting,
-                    'svn_path':lang.svn_path,
-                    'svn_repo':lang.svn_repo,
-                    'backup_setting':lang.backup_setting,
-                    'backup_daily':lang.backup_daily,
-                    'backup_monthly':lang.backup_monthly,
-                    'button_ok':lang.button_ok,
-                    'button_cancel':lang.button_cancel,
-                    'link_serverconf':lang.link_serverconf,
-                    'link_newpro':lang.link_newpro,
-                    'link_appconf':lang.link_appconf,
-                    'link_sysconf':lang.link_sysconf}
+            data = {'layout':THEME,
+                    'serverconf_title':lang.serverconf_title.decode("utf-8"),
+                    'ldap_setting':lang.ldap_setting.decode("utf-8"),
+                    'ldap_path':lang.ldap_path.decode("utf-8"),
+                    'ldap_com':lang.ldap_com.decode("utf-8"),
+                    'ldap_mail':lang.ldap_mail.decode("utf-8"),
+                    'ldap_user':lang.ldap_user.decode("utf-8"),
+                    'ldap_pwd':lang.ldap_pwd.decode("utf-8"),
+                    'db_setting':lang.db_setting.decode("utf-8"),
+                    'db_path':lang.db_path.decode("utf-8"),
+                    'db_user':lang.db_user.decode("utf-8"),
+                    'db_pwd':lang.db_pwd.decode("utf-8"),
+                    'apache_setting':lang.apache_setting.decode("utf-8"),
+                    'apache_path':lang.apache_path.decode("utf-8"),
+                    'apache_port':lang.apache_port.decode("utf-8"),
+                    'share_setting':lang.share_setting.decode("utf-8"),
+                    'share_path':lang.share_path.decode("utf-8"),
+                    'share_name':lang.share_name.decode("utf-8"),
+                    'svn_setting':lang.svn_setting.decode("utf-8"),
+                    'svn_path':lang.svn_path.decode("utf-8"),
+                    'svn_repo':lang.svn_repo.decode("utf-8"),
+                    'backup_setting':lang.backup_setting.decode("utf-8"),
+                    'backup_daily':lang.backup_daily.decode("utf-8"),
+                    'backup_monthly':lang.backup_monthly.decode("utf-8"),
+                    'button_ok':lang.button_ok.decode("utf-8"),
+                    'button_cancel':lang.button_cancel.decode("utf-8"),
+                    'link_serverconf':lang.link_serverconf.decode("utf-8"),
+                    'link_newpro':lang.link_newpro.decode("utf-8"),
+                    'link_appconf':lang.link_appconf.decode("utf-8"),
+                    'link_sysconf':lang.link_sysconf.decode("utf-8")}
             return tl.load('serverconfig.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -106,17 +111,18 @@ class Index(object):
     def Newproject(self):
         global logined
         if logined:
-            if sysconfig.LANG=="cn":
+            global LANG,THEME
+            if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {
-                    'button_ok':lang.button_ok,
-                    'button_cancel':lang.button_cancel,
-                    'link_serverconf':lang.link_serverconf,
-                    'link_newpro':lang.link_newpro,
-                    'link_appconf':lang.link_appconf,
-                    'link_sysconf':lang.link_sysconf}
+            data = {'layout':THEME,
+                    'button_ok':lang.button_ok.decode("utf-8"),
+                    'button_cancel':lang.button_cancel.decode("utf-8"),
+                    'link_serverconf':lang.link_serverconf.decode("utf-8"),
+                    'link_newpro':lang.link_newpro.decode("utf-8"),
+                    'link_appconf':lang.link_appconf.decode("utf-8"),
+                    'link_sysconf':lang.link_sysconf.decode("utf-8")}
             return tl.load('newproject.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -126,17 +132,18 @@ class Index(object):
     def Application(self):
         global logined
         if logined:
-            if sysconfig.LANG=="cn":
+            global LANG,THEME
+            if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {
-                    'button_ok':lang.button_ok,
-                    'button_cancel':lang.button_cancel,
-                    'link_serverconf':lang.link_serverconf,
-                    'link_newpro':lang.link_newpro,
-                    'link_appconf':lang.link_appconf,
-                    'link_sysconf':lang.link_sysconf}
+            data = {'layout':THEME,
+                    'button_ok':lang.button_ok.decode("utf-8"),
+                    'button_cancel':lang.button_cancel.decode("utf-8"),
+                    'link_serverconf':lang.link_serverconf.decode("utf-8"),
+                    'link_newpro':lang.link_newpro.decode("utf-8"),
+                    'link_appconf':lang.link_appconf.decode("utf-8"),
+                    'link_sysconf':lang.link_sysconf.decode("utf-8")}
             return tl.load('application.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -145,21 +152,23 @@ class Index(object):
     def Systemconf(self):
         global logined
         if logined:
-            if sysconfig.LANG=="cn":
+            global LANG,THEME
+            if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'sysconf_title':lang.sysconf_title,
-                    'sys_lang':lang.sys_lang,
-                    'sys_css':lang.sys_css,
-                    'css_type1':lang.css_type1,
-                    'css_type2':lang.css_type2,
-                    'button_ok':lang.button_ok,
-                    'button_cancel':lang.button_cancel,
-                    'link_serverconf':lang.link_serverconf,
-                    'link_newpro':lang.link_newpro,
-                    'link_appconf':lang.link_appconf,
-                    'link_sysconf':lang.link_sysconf}
+            data = {'layout':THEME,
+                    'sysconf_title':lang.sysconf_title.decode("utf-8"),
+                    'sys_lang':lang.sys_lang.decode("utf-8"),
+                    'sys_css':lang.sys_css.decode("utf-8"),
+                    'css_type1':lang.css_type1.decode("utf-8"),
+                    'css_type2':lang.css_type2.decode("utf-8"),
+                    'button_ok':lang.button_ok.decode("utf-8"),
+                    'button_cancel':lang.button_cancel.decode("utf-8"),
+                    'link_serverconf':lang.link_serverconf.decode("utf-8"),
+                    'link_newpro':lang.link_newpro.decode("utf-8"),
+                    'link_appconf':lang.link_appconf.decode("utf-8"),
+                    'link_sysconf':lang.link_sysconf.decode("utf-8")}
             return tl.load('systemconf.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -167,10 +176,9 @@ class Index(object):
     @cherrypy.expose
     def doSysconf(self, language=None, theme=None):
         if logined:
-            f = open("sysconfig.py", "w")
-            f.write('LANG = \"%s\"\n' %language)
-            f.write('THEME = \"%s\"\n' %theme)
-            f.close()
+            global LANG,THEME
+            LANG=language
+            THEME=theme+".css"
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -179,16 +187,18 @@ class Index(object):
     def Statussuccess(self):
         global logined
         if logined:
-            if sysconfig.LANG=="cn":
+            global LANG,THEME
+            if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'status_title':lang.status_title_success,
-                    'config_status':lang.config_status_success,
-                    'link_serverconf':lang.link_serverconf,
-                    'link_newpro':lang.link_newpro,
-                    'link_appconf':lang.link_appconf,
-                    'link_sysconf':lang.link_sysconf}
+            data = {'layout':THEME,
+                    'status_title':lang.status_title_success.decode("utf-8"),
+                    'config_status':lang.config_status_success.decode("utf-8"),
+                    'link_serverconf':lang.link_serverconf.decode("utf-8"),
+                    'link_newpro':lang.link_newpro.decode("utf-8"),
+                    'link_appconf':lang.link_appconf.decode("utf-8"),
+                    'link_sysconf':lang.link_sysconf.decode("utf-8")}
             return tl.load('confstatus.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -197,16 +207,18 @@ class Index(object):
     def Statusfail(self):
         global logined
         if logined:
-            if sysconfig.LANG=="cn":
+            global LANG,THEME
+            if LANG=="cn":
                 import language.cn as lang
             else:
                 import language.en as lang
-            data = {'status_title':lang.status_title_fail,
-                    'config_status':lang.config_status_fail,
-                    'link_serverconf':lang.link_serverconf,
-                    'link_newpro':lang.link_newpro,
-                    'link_appconf':lang.link_appconf,
-                    'link_sysconf':lang.link_sysconf}
+            data = {'layout':THEME,
+                    'status_title':lang.status_title_fail.decode("utf-8"),
+                    'config_status':lang.config_status_fail.decode("utf-8"),
+                    'link_serverconf':lang.link_serverconf.decode("utf-8"),
+                    'link_newpro':lang.link_newpro.decode("utf-8"),
+                    'link_appconf':lang.link_appconf.decode("utf-8"),
+                    'link_sysconf':lang.link_sysconf.decode("utf-8")}
             return tl.load('confstatus.html').generate(**data).render()
         else:
             raise cherrypy.HTTPRedirect("index")
