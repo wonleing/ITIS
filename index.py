@@ -214,6 +214,10 @@ class Index(object):
         else:
             raise cherrypy.HTTPRedirect("index")
 
+    @cherrypy.expose
+    def currentcss(self):
+        f=open("html/current.css", "r")
+        return f.read()
 
 
 if __name__ == '__main__':
