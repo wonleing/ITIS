@@ -4,7 +4,7 @@
       xmlns:py="http://genshi.edgewall.org/">
 
 <head>
-    <title>Add one node to system</title>
+    <title>$app_title</title>
     <link rel="stylesheet" href="currentcss" type="text/css"/>
 </head>
 
@@ -13,6 +13,26 @@
 <tr><td>
   <xi:include href="navbar.html" />
 	
+<p>$pj_text1 | $pj_text2 | $pj_text3 | $pj_text4</p>
+
+</td></tr>
+
+<tr> <td>
+<form method="post" action="doApp" border="3">
+ <table py:if="apps" >
+     <tr py:for="app in apps">
+         <td size="15">${app[0]}</td>
+         <td><input name="${app[0]}_1" type="text" size="15" maxlength="20" value="${app[1]}" /></td>
+         <td><input name="${app[0]}_2" type="text" size="15" maxlength="20" value="${app[2]}" /></td>
+         <td><input name="${app[0]}_3" type="text" size="15" maxlength="20" value="${app[3]}" /></td>
+         <td><input name="${app[0]}_4" type="text" size="15" maxlength="20" value="${app[4]}" /></td>
+         <td><input name="${app[0]}_5" type="text" size="15" maxlength="20" value="${app[5]}" /></td>
+         <td><input name="${app[0]}_6" type="text" size="15" maxlength="20" value="${app[6]}" /></td>
+           </tr>
+ </table>
+<p><input type="submit" value="$button_ok"/> </p>
+</form>
+</td></tr>
 
 
 <form name="addnode" method="post" action="/doAdd">
