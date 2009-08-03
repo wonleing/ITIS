@@ -11,6 +11,7 @@ if (($?==1));then
   yum -q -y install mediawiki
   wikidir=$apache_path/wiki
   ln -s /var/www/wiki $wikidir
+  rm -rf /var/www/wiki/wiki
   echo "create database $mw_dbname;
 create user $mw_dbuser@localhost;
 update mysql.user set Password=password(\"$mw_dbpwd\") where User=\"$mw_dbuser\";
@@ -59,7 +60,7 @@ update mysql.user set Password=password(\"$bz_dbpwd\") where User=\"$bz_dbuser\"
 grant all privileges on $bz_dbname.* to $bz_dbuser@localhost;
 flush privileges;" | mysql -u $database_uname -p$database_passwd
   sed -i -e "s/db_name = 'bugs'/db_name = \'$bz_dbname\'/" -e "s/db_user = 'bugs'/db_user = \'$bz_dbuser\'/" -e "s/db_pass = ''/db_pass = \'$bz_dbpwd\'/" /etc/bugzilla/localconfig
-  echo "\$answer{'ADMIN_EMAIL'} = '$bz_adminuser';
+  echo "\$answer{'ADMIN_EMAIL'} = 'admin@itis.com';
 \$answer{'ADMIN_PASSWORD'} = '$bz_adminpwd';
 \$answer{'ADMIN_REALNAME'} = '$bz_adminuser';
 \$answer{'SMTP_SERVER'} = 'mail.localhost.localdomain';" > /tmp/bz_temp
@@ -67,6 +68,7 @@ flush privileges;" | mysql -u $database_uname -p$database_passwd
   cd $bzdir
   ./checksetup.pl /tmp/bz_temp
   cd -
+  echo "update $bz_dbname.profiles set login_name='$bz_adminuser' where login_name='admin@itis.com'" | mysql -u $bz_dbuser -p$bz_dbpwd
   rm -rf /tmp/bz_temp
   sed -i "s/<\/html>/\n<li><a href=\"bugzilla\">Bugzilla page<\/a><\/li><\/html>/" $apache_path/index.html
 fi
@@ -106,6 +108,8 @@ flush privileges;" | mysql -u $database_uname -p$database_passwd
   sed -i -e "s/dotproject/$dp_dbname/g" -e "s/dp_user/$dp_dbuser/" -e "s/dp_pass/$dp_dbpwd/" /usr/share/dotproject/includes/config-dist.php
   [ -z $dp_urlbase ] || sed -i "s,= \$baseUrl,= $dp_urlbase," /usr/share/dotproject/includes/config-dist.php
   firefox http://localhost:$apache_port/dotproject/install/index.php
+  echo "update dotproject.users set user_password=md5('$dp_adminpwd') where user_username='admin';
+update dotproject.users set user_username='$dp_adminuser' where user_username='admin';" | mysql -u $database_uname -p$database_passwd
   sed -i "s/<\/html>/\n<li><a href=\"dotproject\">Dotproject page<\/a><\/li><\/html>/" $apache_path/index.html
 fi
 

@@ -7,23 +7,23 @@ source application.conf
 (($# != 2)) && echo "Usage: ./$0 project_name application_name!" && exit
 case "$2" in
   ldap)
-    echo LDAP..$2;;
+    echo "LDAP user added!";;
   samba)
-    ;;
+    mkdir -p $share_path/$1;;
   MediaWiki)
-    ;;
+    firefox http://localhost:$apache_port/wiki/index.php?title=$1&action=edit&section=1;;
   Wordpress)
-    ;;
+    firefox http://localhost:$apache_port/$wp_urlbase/wordpress/wp-login.php;;
   Bugzilla)
-    ;;
+    firefox http://localhost:$apache_port/bugzilla/relogin.cgi;;
   Sugarcrm)
-    ;;
+    firefox http://localhost:$apache_port/sugarcrm/index.php?module=Project&action=EditView&return_module=Project&return_action=DetailView;;
   Dotproject)
-    ;;
+    firefox http://localhost:$apache_port/dotproject/index.php?m=companies&a=addedit;;
   Orangehrm)
-    ;;
+    firefox http://localhost:$apache_port/orangehrm/login.php;;
   Drupal)
-    ;;
+    firefox http://localhost:$apache_port/drupal/?q=node/add/page;;
   *)
     echo application $2 is not defined
     exit 1;;

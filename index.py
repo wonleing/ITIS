@@ -148,7 +148,9 @@ class Index(object):
             cx.commit()
             cx.close()
             for app in applist:
-              os.system("sudo ./createproject.sh %s %s" %(newpj_1, app))
+              if app==LDAP:
+                os.system("sudo ./ldapadduser.sh %s %s" %(newpj_2, newpj_4))
+              os.system("sudo ./createproject.sh %s %s" %(newpj_2, app))
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
