@@ -321,5 +321,5 @@ class Index(object):
 
 if __name__ == '__main__':
     tl = TemplateLoader(['./html'])
-    cherrypy.config.update('global.conf')
+    cherrypy.config.update('/etc/itis/global.conf')
     cherrypy.quickstart(Index())
