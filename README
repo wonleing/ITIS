@@ -1,19 +1,39 @@
-Get this project with:
-git clone git@github.com:wonleing/ITIS.git
-
-Setup and start webserver with:
+Configuration and setup
+============
+Install:
 ./setup.sh
 
-Then you can go to http://127.0.0.1:8080 to manage your Fedora 10 server!
+Configure:
+vi /etc/itis/global.conf to set ITIS http service IP and port.
 
-SVN
-http://storage.linuxce.cn/repos/itis
-wonleing/76712
+Start service:
+/etc/init.d/itis start
 
-Dir plan
-lib -> /usrb/python2.5/site-pachage/itis
-etc ->/etc
-script -> /usr/itis/script
+Use ITIS:
+Use your browser to visit the URL with defined IP and port to manage your Fedora 10 server! The default URL is "http://127.0.0.1:8080"
+
+
+SVN and git
+=============
+svn co http://storage.linuxce.cn/repos/itis
+git clone git@github.com:wonleing/ITIS.git
+
+
+Dir Structure
+==============
+lib -> /usrb/python2.5/site-pachage
+-----------------------
+pam.py  cherrypy.py  genshi.py
+
+etc/itis -> /etc/itis
+-----------------------
+application.conf  global.conf  initdb.sql  server.conf  sugarcrmconf.php
+
+others -> /usr/itis
+-----------------------
+html  index.py  language  README  script  test
+
 
 Have Fun!
 Leon
+mail: wonleing@163.com
