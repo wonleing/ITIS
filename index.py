@@ -75,7 +75,7 @@ class Index(object):
 
     @cherrypy.expose
     def doConfig(self, ldap_1=None, ldap_2=None, ldap_3=None, ldap_4=None, ldap_5=None, database_1=None, database_2=None, database_3=None, apache_1=None, apache_2=None, share_1=None, share_2=None, svn_1=None, svn_2=None, backup_1=None, backup_2=None):
-        if ldap_1==None or ldap_2==None or ldap_3==None or ldap_4==None or ldap_5==None or database_1==None or database_2==None or database_3==None or apache_1==None or apache_2==None or share_1==None or  share_2==None or svn_1==None or svn_2==None:
+        if ldap_1=="" or ldap_2=="" or ldap_3=="" or ldap_4=="" or ldap_5=="" or database_1=="" or database_2=="" or database_3=="" or apache_1=="" or apache_2=="" or share_1=="" or  share_2=="" or svn_1=="" or svn_2=="":
             raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             f = open("/etc/itis/server.conf", "w")
@@ -109,7 +109,7 @@ class Index(object):
                 import language.cn as lang
             else:
                 import language.en as lang
-            cx = sqlite3.connect("db")
+            cx = sqlite3.connect("/tmp/db")
             cu = cx.cursor()
             cu.execute("select * from project")
             result = cu.fetchall()
@@ -138,12 +138,17 @@ class Index(object):
 
     @cherrypy.expose
     def doProject(self, newpj_1=None, newpj_2=None, newpj_3=None, newpj_4=None, applist=None):
-        if newpj_1==None:
+        if newpj_1=="" or newpj_2=="" or applist==None:
            raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             ctime = time.strftime("%F")
-            cx = sqlite3.connect("db")
+            cx = sqlite3.connect("/tmp/db")
             cu = cx.cursor()
+            cu.execute("select count(*) from project where code='%s'" %newpj_2)
+            result = cu.fetchall()
+            print result[0][0]
+            if result[0][0] != 0:
+                raise cherrypy.HTTPRedirect("Statusfail")
             cu.execute("insert into project values ('%s','%s','%s','%s','%s')" %(newpj_1, newpj_2, newpj_3, newpj_4, ctime))
             cx.commit()
             cx.close()
@@ -163,7 +168,7 @@ class Index(object):
                 import language.cn as lang
             else:
                 import language.en as lang
-            cx = sqlite3.connect("db")
+            cx = sqlite3.connect("/tmp/db")
             cu = cx.cursor()
             cu.execute("select * from application")
             result = cu.fetchall()
@@ -190,7 +195,7 @@ class Index(object):
 
     @cherrypy.expose
     def doApp(self, MediaWiki_1=None, MediaWiki_2=None, MediaWiki_3=None, MediaWiki_4=None, MediaWiki_5=None, MediaWiki_6=None, Wordpress_1=None, Wordpress_2=None, Wordpress_3=None, Wordpress_4=None, Wordpress_5=None, Wordpress_6=None, Bugzilla_1=None, Bugzilla_2=None, Bugzilla_3=None, Bugzilla_4=None, Bugzilla_5=None, Bugzilla_6=None, Sugarcrm_1=None, Sugarcrm_2=None, Sugarcrm_3=None, Sugarcrm_4=None, Sugarcrm_5=None, Sugarcrm_6=None, Dotproject_1=None, Dotproject_2=None, Dotproject_3=None, Dotproject_4=None, Dotproject_5=None, Dotproject_6=None, Orangehrm_1=None, Orangehrm_2=None, Orangehrm_3=None, Orangehrm_4=None, Orangehrm_5=None, Orangehrm_6=None, Drupal_1=None, Drupal_2=None, Drupal_3=None, Drupal_4=None, Drupal_5=None, Drupal_6=None):
-        if MediaWiki_1==None or MediaWiki_2==None or MediaWiki_3==None or Wordpress_1==None or Wordpress_2==None or Wordpress_3==None or Bugzilla_1==None or Bugzilla_2==None or Bugzilla_3==None or Sugarcrm_1==None or Sugarcrm_2==None or Sugarcrm_3==None or Dotproject_1==None or Dotproject_2==None or Dotproject_3==None or Orangehrm_1==None or Orangehrm_2==None or Orangehrm_3==None or Drupal_1==None or Drupal_2==None or Drupal_3==None:
+        if MediaWiki_1=="" or MediaWiki_2=="" or MediaWiki_3=="" or Wordpress_1=="" or Wordpress_2=="" or Wordpress_3=="" or Bugzilla_1=="" or Bugzilla_2=="" or Bugzilla_3=="" or Sugarcrm_1=="" or Sugarcrm_2=="" or Sugarcrm_3=="" or Dotproject_1=="" or Dotproject_2=="" or Dotproject_3=="" or Orangehrm_1=="" or Orangehrm_2=="" or Orangehrm_3=="" or Drupal_1=="" or Drupal_2=="" or Drupal_3=="":
            raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             f = open("/etc/itis/application.conf", "w")
@@ -267,7 +272,7 @@ class Index(object):
         
     @cherrypy.expose
     def doSysconf(self, language=None, theme=None):
-        if language==None or theme==None:
+        if language=="" or theme=="":
            raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             global LANG

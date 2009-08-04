@@ -6,9 +6,9 @@ rpm -q python-genshi
 (($?==1)) && (echo "Intalling python-genshi...";yum -q -y python-genshi)
 rm -rf /etc/itis /usr/itis/
 mkdir -p /usr/itis/
+cp -r etc/itis /etc/
 cp -r html index.py language README script test /usr/itis/
 cp lib/* /usr/lib/python2.*/site-packages
-cp -r etc/itis /etc/
-cat /etc/itis/initdb.sql | sqlite3 /usr/itis/db
 ln -s /usr/itis/script/itis /etc/init.d/itis > /dev/null 2>&1
+cat /etc/itis/initdb.sql | sqlite3 /tmp/db
 echo -e "Package install successfully!\nPlease use '/etc/init.d/itis start' to start the service\n"
