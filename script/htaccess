@@ -1,0 +1,16 @@
+# BEGIN SUGARCRM RESTRICTIONS
+RedirectMatch /sugarcrm/sugarcrm.log.* http://localhost/sugarcrm/log_file_restricted.html
+RedirectMatch /sugarcrm/emailman.log http://localhost/sugarcrm/log_file_restricted.html
+RedirectMatch /sugarcrm/not_imported_(.*).txt http://localhost/sugarcrm/log_file_restricted.html
+RedirectMatch /sugarcrm/XTemplate/(.*)/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/data/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/examples/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/include/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/include/(.*)/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/log4php/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/log4php/(.*)/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/metadata/(.*)/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/modules/(.*)/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/soap/(.*).php http://localhost/sugarcrm/index.php
+RedirectMatch /sugarcrm/emailmandelivery.php http://localhost/sugarcrm/index.php
+# END SUGARCRM RESTRICTIONS

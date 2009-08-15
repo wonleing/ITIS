@@ -1,0 +1,15 @@
+POST /wiki/config/index.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/wiki/config/index.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 551
+
+Sitename=ITIS&EmergencyContact=root%40localhost&LanguageCode=en&License=none&SysopName=sysop&SysopPass=itis&SysopPass2=itis&Shm=none&MCServers=&Email=email_enabled&Emailuser=emailuser_enabled&Enotif=enotif_allpages&Eauthent=eauthent_enabled&DBtype=mysql&DBserver=localhost&DBname=mediawiki&DBuser=wikiuser&DBpassword=secret&DBpassword2=secret&RootUser=root&RootPW=&DBprefix=&DBengine=InnoDB&DBschema=mysql5-binary&DBport=5432&DBmwschema=mediawiki&DBts2schema=public&SQLiteDataDir=&DBprefix2=&DBport_db2=50000&DBmwschema=mediawiki&DBcataloged=cataloged
+===========

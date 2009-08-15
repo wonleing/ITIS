@@ -4,12 +4,17 @@ source /etc/itis/application.conf
 source /etc/itis/server.conf
 cache=/tmp/cache
 
-chown -R apache:apache /usr/share/sugarcrm
+
+
 j=0
-for i in `grep -n "======" install_sugarcrm | cut -d ":" -f1`;do
-    awk "NR>$j && NR<$i" install_sugarcrm > $cache
-    nc localhost 80 < $cache 
+for i in `grep -n "======" install_orangehrm | cut -d ":" -f1`;do
+    awk "NR>$j && NR<$i" install_orangehrm > $cache
+    nc localhost 80 < $cache | more
     j=$i
 done
-sed -i "/installer_locked/s/true/false/" /usr/share/sugarcrm/config.php
-
+exit
+echo "create database $oh_dbname;
+create user $oh_dbuser@localhost;
+update mysql.user set Password=password(\"$oh_dbpwd\") where User=\"$oh_dbuser\";
+grant all privileges on $oh_dbname.* to $oh_dbuser@localhost;
+flush privileges;" | mysql -u $database_uname -p$database_passwd

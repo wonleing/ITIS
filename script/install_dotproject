@@ -1,0 +1,30 @@
+POST /dotproject/install/db.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/dotproject/install/index.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 36
+
+next=Start+Installation&mode=install
+=========
+POST /dotproject/install/do_install_db.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/dotproject/install/db.php
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 127
+
+mode=install&dbtype=mysql&dbhost=localhost&dbname=dotproject&dbuser=dotproject&dbpass=secret&do_db_cfg=install+db+%26+write+cfg
+==========
