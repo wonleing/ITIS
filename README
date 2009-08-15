@@ -1,7 +1,6 @@
 Dependence
 ===========
-You need to pre-install following packages with yum:
-mediawiki wordpress bugzilla drupal openldap-servers openldap-servers-sql mysql mysql-server httpd samba subversion mod_dav_svn
+You need to pre-install packages in dependencelist with yum
 
 
 Configuration and setup
@@ -10,7 +9,7 @@ Install:
 ./setup.sh
 
 Configure:
-vi /etc/itis/global.conf to set ITIS http service IP and port.
+vi /etc/itis/cherrypy.conf to set ITIS http service IP and port.
 
 Start service:
 /etc/init.d/itis start
@@ -25,17 +24,17 @@ svn co http://storage.linuxce.cn/repos/itis
 git clone git@github.com:wonleing/ITIS.git
 
 
-Dir Structure
+Default Dir Structure
 ==============
-lib -> /usrb/python2.5/site-pachage
+lib -> LIB_DIR
 -----------------------
 pam.py  cherrypy.py  genshi.py
 
 etc/itis -> /etc/itis
 -----------------------
-application.conf  global.conf  initdb.sql  server.conf  sugarcrmconf.php
+application.conf  cherrypy.conf  config  initdb.sql  server.conf  sugarcrmconf.php
 
-others -> /usr/itis
+others -> MAIN_DIR
 -----------------------
 html  index.py  language  README  script  test
 

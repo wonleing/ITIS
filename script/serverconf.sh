@@ -7,10 +7,6 @@ source /etc/itis/server.conf
 setenforce 0
 
 #Ldap Configuration. Where to configure the mail dn?
-rpm -q openldap-servers
-(($?==1)) && yum -q -y install openldap-servers
-rpm -q openldap-servers-sql
-(($?==1)) && yum -q -y install openldap-servers-sql
 mkdir -p $ldap_path
 dcstring="dc=`echo $ldap_com | sed 's/\./,dc=/g'`"
 ldap_p=`slappasswd -h {MD5} -s $ldap_passwd`
@@ -21,10 +17,6 @@ pkill slapd
 slapd
 
 #Mysql Configuration
-rpm -q mysql
-(($?==0)) || yum -q -y install mysql
-rpm -q mysql-server
-(($?==0)) || yum -q -y install mysql-server
 /etc/init.d/mysqld start
 mkdir -p $database_path
 mysqladmin -u $database_uname password $database_passwd
@@ -35,8 +27,6 @@ if (($?==1));then
 fi
 
 #Apache Configuration
-rpm -q httpd
-(($?==0)) || yum -q -y install httpd
 mkdir -p $apache_path
 grep ^DocumentRoot /etc/httpd/conf/httpd.conf
 if (($?==0));then
@@ -52,13 +42,19 @@ else
 fi
 sed -i "s/^#AddHandler cgi-script .cgi/AddHandler cgi-script .cgi/" /etc/httpd/conf/httpd.conf
 echo "<html><p>Now apache home directory is $apache_path, using port $apache_port</p>
-<li><a href="$svn_repo/$svn_repo">svn repos</a></li></html>" > $apache_path/index.html
+<li><a href="$svn_repo/$svn_repo">svn repos</a></li>
+<li><a href="wiki">Mediawiki</a></li>
+<li><a href="wordpress">Wordpress</a></li>
+<li><a href="bugzilla">Bugzilla</a></li>
+<li><a href="sugarcrm">Sugarcrm</a></li>
+<li><a href="dotproject">Dotproject</a></li>
+<li><a href="orangehrm">Orangehrm</a></li>
+<li><a href="drupal">Drupal</a></li>
+</html>" > $apache_path/index.html
 
 apachectl restart
 
 #Samba Configuration
-rpm -q samba
-(($?==0)) || yum -q -y install samba
 grep "^\[$share_name\]" /etc/samba/smb.conf
 if (($?==1));then
   mkdir -p $share_path
@@ -73,10 +69,6 @@ if (($?==1));then
 fi
 
 #Subversion Configuration
-rpm -q subversion
-(($?==1)) && yum -q -y install subversion
-rpm -q mod_dav_svn
-(($?==1)) && yum -q -y install mod_dav_svn
 grep "VNParentPath $svn_path" /etc/httpd/conf.d/subversion.conf | grep -v '#'
 if (($?==1));then
   mkdir -p $svn_path
@@ -94,12 +86,12 @@ if (($?==1));then
    </LimitExcept>
 </Location>" >> /etc/httpd/conf.d/subversion.conf
 /etc/init.d/httpd restart
-svn --username leon --password leing import --depth files `pwd` http://127.0.0.1:$apache_port/$svn_repo/$svn_repo -m "initially import my scripts into $svn_repo"
+#svn --username leon --password leing import --depth files `pwd` http://127.0.0.1:$apache_port/$svn_repo/$svn_repo -m "initially import my scripts into $svn_repo"
 fi
 
-#Daily and Monthly cronjob
+#Daily and Weekly cronjob
 [ "x$backup_daily" != "x" ] && [ -f $backup_daily ] && cp $backup_daily /etc/cron.daily/
-[ "x$backup_monthly" != "x" ] && [ -f $backup_monthly ] && cp $backup_monthly /etc/cron.monthly/
+[ "x$backup_weekly" != "x" ] && [ -f $backup_weekly ] && cp $backup_weekly /etc/cron.weekly/
 /etc/init.d/crond restart
 
 #If you want to enable SELinux again, please uncomment next line

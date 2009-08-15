@@ -2,6 +2,7 @@
 #This script is used to make application.conf take effect. You need to be root to run this!
 source /etc/itis/application.conf
 source /etc/itis/server.conf
+source /etc/itis/config
 cache=/tmp/cache
 ((`id -u` !=0 )) && echo "You need to be root to run application configure script!" && exit 1
 rpm -q mediawiki wordpress bugzilla sugarcrm dotproject orangehrm drupal || exit 1
@@ -53,7 +54,7 @@ sed -i "/^\$db_url/c\\\$db_url= 'mysql:\/\/$dr_dbuser:$dr_dbpwd@localhost\/$dr_d
 [ -z $dp_urlbase ] || sed -i "s,= \$baseUrl,= $dp_urlbase," /usr/share/dotproject/includes/config-dist.php
 [ -z $mw_urlbase ] || echo "\$wgServer = '$mw_urlbase';" >> /var/www/wiki/config/LocalSettings.php
 
-cd /usr/itis/script/
+cd $MAIN_DIR/script/
 #Send http request to perform web installation
 for app in {'mediawiki','wordpress','sugarcrm','dotproject','orangehrm','drupal'};do
   chown -R apache:apache /usr/share/$app

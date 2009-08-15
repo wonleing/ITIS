@@ -60,8 +60,8 @@ check_file "$svn_path/$svn_repo"
 
 Case_NO="check tasks in daily cronjob. daily script(if exist):$backup_daily"
 [ -z $backup_daily ] || check_file "/etc/cron.daily/$backup_daily"
-Case_NO="check tasks in monthly cronjob. monthly script(if exist):$backup_monthly"
-[ -z $backup_monthly ] || check_file "/etc/cron.monthly/$backup_monthly"
+Case_NO="check tasks in weekly cronjob. weekly script(if exist):$backup_weekly"
+[ -z $backup_weekly ] || check_file "/etc/cron.weekly/$backup_weekly"
 
 Case_NO="database $mw_dbname and its dbuser,dbpassword"
 echo "show databases;" | mysql -u $mw_dbuser -p$mw_dbpwd > $cache

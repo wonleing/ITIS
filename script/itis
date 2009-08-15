@@ -1,14 +1,16 @@
 #!/bin/bash
+source /etc/itis/config
+
 ((`id -u` !=0)) && echo "You need to be root to run this script!" && exit 1
 (($# != 1)) && echo "Usage: /etc/init.d/itis <start|stop|restart>" && exit 1
 case "$1" in
   start)
-    python /usr/itis/index.py &;;
+    python $MAIN_DIR/index.py &;;
   stop)
     pkill python;;
   restart)
     pkill python
-    python /usr/itis/index.py &;;
+    python $MAIN_DIR/index.py &;;
   *)
     echo "Usage: /etc/init.d/itis <start|stop|restart>"
     exit 1;;

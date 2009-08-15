@@ -1,11 +1,13 @@
 # -*- coding:utf-8 -*-
 import cherrypy,os,pam,sqlite3,time
 from genshi.template import TemplateLoader
+MAIN_DIR = "/usr/share/itis"
+LIB_DIR = "/usr/lib/python2.*/site-packages"
 
 class Index(object):
     def __init__(self):
         global logined,LANG,errmessage
-        logined=1
+        logined=0
         LANG="en"
         err_message=""
 
@@ -63,7 +65,7 @@ class Index(object):
                     'svn_repo':lang.svn_repo.decode("utf-8"),
                     'backup_setting':lang.backup_setting.decode("utf-8"),
                     'backup_daily':lang.backup_daily.decode("utf-8"),
-                    'backup_monthly':lang.backup_monthly.decode("utf-8"),
+                    'backup_weekly':lang.backup_weekly.decode("utf-8"),
                     'button_ok':lang.button_ok.decode("utf-8"),
                     'button_cancel':lang.button_cancel.decode("utf-8"),
                     'link_serverconf':lang.link_serverconf.decode("utf-8"),
@@ -77,9 +79,8 @@ class Index(object):
     @cherrypy.expose
     def doConfig(self, ldap_1=None, ldap_2=None, ldap_3=None, ldap_4=None, ldap_5=None, database_1=None, database_2=None, database_3=None, apache_1=None, apache_2=None, share_1=None, share_2=None, svn_1=None, svn_2=None, backup_1=None, backup_2=None):
         if ldap_1=="" or ldap_2=="" or ldap_3=="" or ldap_4=="" or ldap_5=="" or database_1=="" or database_2=="" or database_3=="" or apache_1=="" or apache_2=="" or share_1=="" or  share_2=="" or svn_1=="" or svn_2=="":
-            global err_message,apache_port
+            global err_message
             err_message="301"
-            apache_port=apache_2
             raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             f = open("/etc/itis/server.conf", "w")
@@ -98,9 +99,9 @@ class Index(object):
             f.write("svn_path=%s\n" %svn_1)
             f.write("svn_repo=%s\n" %svn_2)
             f.write("backup_daily=%s\n" %backup_1)
-            f.write("backup_monthly=%s\n" %backup_2)
+            f.write("backup_weekly=%s\n" %backup_2)
             f.close()
-            os.system("sudo /usr/itis/script/serverconf.sh")
+            os.system("sudo " + MAIN_DIR + "/script/serverconf.sh")
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -160,11 +161,8 @@ class Index(object):
             cx.commit()
             cx.close()
             for app in applist:
-              if app=="ldap":
-                os.system("sudo /usr/itis/script/ldapadduser.sh %s %s" %(newpj_2, newpj_4))
-              elif app=="samba":
-                os.system("sudo /usr/itis/script/createproject.sh %s %s" %(newpj_2, app))
-            raise cherrypy.HTTPRedirect("http://" + cherrypy.config["server.socket_host"] + ":" + apache_port)
+                os.system("sudo "+ MAIN_DIR + "/script/createproject.sh %s %s" %(newpj_2, app))
+            raise cherrypy.HTTPRedirect("http://" + cherrypy.config["server.socket_host"] + "/" + newpj_2 + ".html")
         else:
             raise cherrypy.HTTPRedirect("index")
 
@@ -252,7 +250,7 @@ class Index(object):
             f.write("dr_adminpwd=%s\n" %Drupal_5)
             f.write("dr_urlbase=%s\n" %Drupal_6)
             f.close()
-            os.system("sudo /usr/itis/script/appconf.sh")
+            os.system("sudo " + MAIN_DIR + "/script/appconf.sh")
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -285,7 +283,7 @@ class Index(object):
         if logined:
             global LANG
             LANG=language
-            os.system("sudo cp /usr/itis/html/" + theme + " /usr/itis/html/current.css")
+            os.system("sudo cp " + MAIN_DIR + "/html/" + theme + " " + MAIN_DIR +"/html/current.css")
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
@@ -338,11 +336,11 @@ class Index(object):
 
     @cherrypy.expose
     def currentcss(self):
-        f=open("/usr/itis/html/current.css", "r")
+        f=open(MAIN_DIR + "/html/current.css", "r")
         return f.read()
 
 
 if __name__ == '__main__':
-    tl = TemplateLoader(['/usr/itis/html'])
-    cherrypy.config.update('/etc/itis/global.conf')
+    tl = TemplateLoader([MAIN_DIR + '/html'])
+    cherrypy.config.update('/etc/itis/cherrypy.conf')
     cherrypy.quickstart(Index())
