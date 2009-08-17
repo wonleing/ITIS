@@ -1,0 +1,301 @@
+GET /drupal/install.php HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+
+===========
+GET /drupal/install.php?profile=default HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+If-Modified-Since: Mon, 17 Aug 2009 20:49:40 GMT
+
+===========
+GET /drupal/install.php?profile=default&locale=en HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+If-Modified-Since: Mon, 17 Aug 2009 20:49:31 GMT
+
+===========
+POST /drupal/install.php?profile=default&locale=en HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?profile=default&locale=en
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 200
+
+db_type=mysqli&db_path=drupal&db_user=drupal&db_pass=secret&db_host=localhost&db_port=&db_prefix=&op=Save+and+continue&form_build_id=form-25bf18e28116613ff69b4fad39da08ad&form_id=install_settings_form
+===========
+GET /drupal/install.php?profile=default&locale=en HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?profile=default&locale=en
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+If-Modified-Since: Mon, 17 Aug 2009 20:49:51 GMT
+
+===========
+GET /drupal/install.php?locale=en&profile=default&op=start&id=1 HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?profile=default&locale=en
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+If-Modified-Since: Mon, 17 Aug 2009 20:04:46 GMT
+
+===========
+GET /drupal/misc/progress.js?1250542257 HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: */*
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default&op=start&id=1
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+
+===========
+GET /drupal/misc/batch.js?1250542257 HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: */*
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default&op=start&id=1
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+
+===========
+POST /drupal/install.php?locale=en&profile=default&id=1&op=do HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: application/json, text/javascript, */*
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+X-Requested-With: XMLHttpRequest
+Referer: http://localhost/drupal/install.php?locale=en&profile=default&op=start&id=1
+Content-Length: 0
+Content-Type: application/xml; charset=UTF-8
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+Pragma: no-cache
+Cache-Control: no-cache
+
+===========
+GET /drupal/install.php?locale=en&profile=default&id=1&op=finished HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default&op=start&id=1
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+
+===========
+GET /drupal/install.php?locale=en&profile=default HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default&op=start&id=1
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+If-Modified-Since: Mon, 17 Aug 2009 20:04:48 GMT
+
+===========
+GET /drupal/admin/settings/clean-urls/check HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: application/json, text/javascript, */*
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+X-Requested-With: XMLHttpRequest
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+
+===========
+POST /drupal/install.php?locale=en&profile=default HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=m6egevn7lgi4fm8pbcfpn38e04
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 333
+
+site_name=localhost&site_mail=itis%40itis.com&account%5Bname%5D=admin&account%5Bmail%5D=itis%40itis.com&account%5Bpass%5D%5Bpass1%5D=itis&account%5Bpass%5D%5Bpass2%5D=itis&date_default_timezone=28800&update_status_module%5B1%5D=1&form_build_id=form-cae0fedc4d3c03a6bccb451c66e6bd05&form_id=install_configure_form&op=Save+and+continue
+===========
+GET /drupal/modules/system/defaults.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========
+GET /drupal/modules/system/system.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========
+GET /drupal/modules/system/system-menus.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========
+GET /drupal/modules/system/maintenance.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========
+GET /drupal/modules/node/node.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========
+GET /drupal/modules/user/user.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========
+GET /drupal/themes/garland/style.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========
+GET /drupal/themes/garland/minnelli/minnelli.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========
+GET /drupal/themes/garland/print.css?B HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://localhost/drupal/install.php?locale=en&profile=default
+Cookie: Bugzilla_login=1; Bugzilla_logincookie=gZwMrajY94; has_js=1; SESScfc90a62c81b7bfc6f292320b1d0b8ca=n6u9qfl7phlegg3jrv5nq2fsk7
+
+===========

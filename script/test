@@ -5,21 +5,17 @@ source /etc/itis/server.conf
 cache=/tmp/cache
 
 
+
+j=0
+for i in `grep -n "======" install_orangehrm2 | cut -d ":" -f1`;do
+    awk "NR>$j && NR<$i" install_orangehrm2 > $cache
+    nc localhost 80 < $cache | grep HTTP
+    j=$i
+done
+sed -e "s/DBNAME/$oh_dbname/" -e "s/DBUSER/$oh_dbuser/" -e "s/DBPWD/$oh_dbpwd/" Conf.php > /usr/share/orangehrm/lib/confs/Conf.php
+exit
 echo "create database $oh_dbname;
 create user $oh_dbuser@localhost;
 update mysql.user set Password=password(\"$oh_dbpwd\") where User=\"$oh_dbuser\";
 grant all privileges on $oh_dbname.* to $oh_dbuser@localhost;
 flush privileges;" | mysql -u $database_uname -p$database_passwd
-j=0
-for i in `grep -n "======" install_orangehrm | cut -d ":" -f1`;do
-    awk "NR>$j && NR<$i" install_orangehrm > $cache
-    nc localhost 80 < $cache
-    j=$i
-    sleep 5
-done
-sed -e "s/DBNAME/$oh_dbname/" -e "s/DBUSER/$oh_dbuser/" -e "s/DBPWD/$oh_dbpwd/" Conf.php > /usr/share/orangehrm/lib/confs/Conf.php
-chown -R apache:apache /usr/share/orangehrm
-echo "insert into $oh_dbname.hs_hr_user_group values ('USG001', 'Admin', '1');
-insert into $oh_dbname.hs_hr_users (id,user_name,user_password,is_admin,receive_notification,status,deleted,userg_id) values ('USR001','$oh_adminuser',MD5('$oh_adminpwd'),'Yes','1','Enabled','0','USG001');" | mysql -u $database_uname -p$database_passwd
-
-
