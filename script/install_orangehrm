@@ -8,11 +8,12 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Referer: http://localhost/orangehrm/installer/installerUI.php
+Cookie: PHPSESSID=t3urv1jd7renqa6br4113b2hr0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 36
 
 txtScreen=0&actionResponse=WELCOMEOK
-===========
+=========
 POST /orangehrm/install.php HTTP/1.1
 Host: localhost
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
@@ -23,11 +24,12 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Referer: http://localhost/orangehrm/installer/installerUI.php
+Cookie: PHPSESSID=t3urv1jd7renqa6br4113b2hr0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 36
 
 txtScreen=1&actionResponse=LICENSEOK
-===========
+=========
 POST /orangehrm/install.php HTTP/1.1
 Host: localhost
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
@@ -38,11 +40,12 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Referer: http://localhost/orangehrm/installer/installerUI.php
+Cookie: PHPSESSID=t3urv1jd7renqa6br4113b2hr0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 192
 
 txtScreen=2&actionResponse=DBINFO&dbHostName=localhost&dbHostPortModifier=port&dbHostPort=3306&dbName=orangehrm&dbUserName=root&dbPassword=secret&dbOHRMUserName=orangehrm&dbOHRMPassword=secret
-==========
+=========
 POST /orangehrm/install.php HTTP/1.1
 Host: localhost
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
@@ -53,11 +56,12 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Referer: http://localhost/orangehrm/installer/installerUI.php
+Cookie: PHPSESSID=t3urv1jd7renqa6br4113b2hr0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 37
 
 txtScreen=3&actionResponse=SYSCHECKOK
-==========
+=========
 POST /orangehrm/install.php HTTP/1.1
 Host: localhost
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
@@ -68,11 +72,12 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Referer: http://localhost/orangehrm/installer/installerUI.php
+Cookie: PHPSESSID=t3urv1jd7renqa6br4113b2hr0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 115
 
-txtScreen=4&actionResponse=DEFUSERINFO&OHRMAdminUserName=Admin&OHRMAdminPassword=itis&OHRMAdminPasswordConfirm=itis
-==========
+txtScreen=4&actionResponse=DEFUSERINFO&OHRMAdminUserName=admin&OHRMAdminPassword=itis&OHRMAdminPasswordConfirm=itis
+=========
 POST /orangehrm/install.php HTTP/1.1
 Host: localhost
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
@@ -83,11 +88,12 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Referer: http://localhost/orangehrm/installer/installerUI.php
+Cookie: PHPSESSID=t3urv1jd7renqa6br4113b2hr0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 36
 
 txtScreen=5&actionResponse=CONFIRMED
-==========
+=========
 POST /orangehrm/install.php HTTP/1.1
 Host: localhost
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
@@ -98,11 +104,12 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Referer: http://localhost/orangehrm/installer/installerUI.php
+Cookie: PHPSESSID=t3urv1jd7renqa6br4113b2hr0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 35
 
 txtScreen=6&actionResponse=REGISTER
-===========
+=========
 POST /orangehrm/install.php HTTP/1.1
 Host: localhost
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/2008111217 Fedora/3.0.4-1.fc10 Firefox/3.0.4
@@ -113,9 +120,9 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Referer: http://localhost/orangehrm/installer/installerUI.php
-Cookie: showLeftCol=true; PHPSESSID=1cb8chidp5p8ho623jp67vjum7
+Cookie: PHPSESSID=t3urv1jd7renqa6br4113b2hr0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 67
 
 txtScreen=7&actionResponse=NOREG&userName=&userEmail=&userComments=
-===========
+=========

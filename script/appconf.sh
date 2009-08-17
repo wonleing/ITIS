@@ -32,6 +32,10 @@ create database $dp_dbname;
 create user $dp_dbuser@localhost;
 update mysql.user set Password=password(\"$dp_dbpwd\") where User=\"$dp_dbuser\";
 grant all privileges on $dp_dbname.* to $dp_dbuser@localhost;
+create database $oh_dbname;
+create user $oh_dbuser@localhost;
+update mysql.user set Password=password(\"$oh_dbpwd\") where User=\"$oh_dbuser\";
+grant all privileges on $oh_dbname.* to $oh_dbuser@localhost;
 create database $dr_dbname;
 create user $dr_dbuser@localhost;
 update mysql.user set Password=password(\"$dr_dbpwd\") where User=\"$dr_dbuser\";
@@ -61,25 +65,30 @@ echo "\$answer{'ADMIN_EMAIL'} = 'admin@itis.com';
 [ -z $bz_urlbase ] || echo "\$answer{'urlbase'} = '$bz_urlbase';" >> /tmp/bz_temp
 /usr/share/bugzilla/checksetup.pl /tmp/bz_temp
 rm -rf /tmp/bz_temp
-
-
-
-
 #sugarcrm
 cp config.php /usr/share/sugarcrm/config.php
 cp htaccess /usr/share/sugarcrm/.htaccess
+#dotproject
+sed -e "s/DBNAME/orangehrm/" -e "s/DBUSER/orangehrm/" -e "s/DBPWD/secret/" Conf.php > /usr/share/orangehrm/lib/confs/Conf.php
+#orangehrm
+sed -e "s/DBNAME/$oh_dbname/" -e "s/DBUSER/$oh_dbuser/" -e "s/DBPWD/$oh_dbpwd/" Conf.php > /usr/share/orangehrm/lib/confs/Conf.php
+
 
 #Set application admin account in mysql
 echo "update $wp_dbname.wp_users set user_login='$wp_adminuser' where user_login='admin';
 update $wp_dbname.wp_users set user_pass=MD5('$wp_adminpwd');
 update $bz_dbname.profiles set login_name='$bz_adminuser' where login_name='admin@itis.com';
 update $sc_dbname.users set user_hash=MD5('$sc_adminpwd');
+insert into $oh_dbname.hs_hr_users (id,user_name,user_password,is_admin,receive_notification,status,deleted) values ('USR001','$oh_adminuser,MD5('$oh_adminpwd),"Yes","1","Enabled","0");
 update $dp_dbname.users set user_password=md5('$dp_adminpwd') where user_username='admin';
 update $dp_dbname.users set user_username='$dp_adminuser' where user_username='admin';
-
+insert into $oh_dbname.hs_hr_user_group values ('USG001', 'Admin', '1');
+insert into $oh_dbname.hs_hr_users (id,user_name,user_password,is_admin,receive_notification,status,deleted,userg_id) values ('USR001','$oh_adminuser',MD5('$oh_adminpwd'),'Yes','1','Enabled','0','USG001');
 " | mysql -u $database_uname -p$database_passwd
 
 
+
+insert into orangehrm.hs_hr_users (id,user_name,user_password,is_admin,receive_notification,status,deleted,userg_id) values ("USR001","admin",MD5("itis"),"Yes","1","Enabled","0","USG001");
 
 
 #MediaWiki settings
