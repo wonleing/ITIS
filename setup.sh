@@ -1,10 +1,9 @@
 #!/bin/bash
-((`id -u` != 0)) && echo "You need to be root!" && exit
-rpm -q python-cherrypy
-(($?==1)) && (echo "Intalling python-cherrypy...";yum -q -y python-cherrypy)
-rpm -q python-genshi
-(($?==1)) && (echo "Intalling python-genshi...";yum -q -y python-genshi)
-rm -rf /etc/itis /usr/itis/
+((`id -u` != 0)) && echo "You need to be root!" && exit 1
+rpm -q `cat dependencelist` > /dev/null
+(($? != 0)) && echo "some packages are missed. please check dependencelist." && exit 1
+echo "Alias /wiki /var/www/wiki" > /etc/httpd/conf.d/wiki.conf
+echo "Alias /drupal /usr/share/drupal" > /etc/httpd/conf.d/drupal.conf
 mkdir -p /usr/itis/
 cp -r etc/itis /etc/
 cp -r html index.py language README script test /usr/itis/

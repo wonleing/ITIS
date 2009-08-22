@@ -1,3 +1,9 @@
+Dependence
+===========
+You need to pre-install following packages with yum:
+mediawiki wordpress bugzilla drupal openldap-servers openldap-servers-sql mysql mysql-server httpd samba subversion mod_dav_svn
+
+
 Configuration and setup
 ============
 Install:

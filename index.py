@@ -77,8 +77,9 @@ class Index(object):
     @cherrypy.expose
     def doConfig(self, ldap_1=None, ldap_2=None, ldap_3=None, ldap_4=None, ldap_5=None, database_1=None, database_2=None, database_3=None, apache_1=None, apache_2=None, share_1=None, share_2=None, svn_1=None, svn_2=None, backup_1=None, backup_2=None):
         if ldap_1=="" or ldap_2=="" or ldap_3=="" or ldap_4=="" or ldap_5=="" or database_1=="" or database_2=="" or database_3=="" or apache_1=="" or apache_2=="" or share_1=="" or  share_2=="" or svn_1=="" or svn_2=="":
-            global err_message
+            global err_message,apache_port
             err_message="301"
+            apache_port=apache_2
             raise cherrypy.HTTPRedirect("Statusfail")
         if logined:
             f = open("/etc/itis/server.conf", "w")
@@ -161,8 +162,9 @@ class Index(object):
             for app in applist:
               if app=="ldap":
                 os.system("sudo /usr/itis/script/ldapadduser.sh %s %s" %(newpj_2, newpj_4))
-              os.system("sudo /usr/itis/script/createproject.sh %s %s" %(newpj_2, app))
-            raise cherrypy.HTTPRedirect("Statussuccess")
+              elif app=="samba":
+                os.system("sudo /usr/itis/script/createproject.sh %s %s" %(newpj_2, app))
+            raise cherrypy.HTTPRedirect("http://" + cherrypy.config["server.socket_host"] + ":" + apache_port)
         else:
             raise cherrypy.HTTPRedirect("index")
 
@@ -283,7 +285,7 @@ class Index(object):
         if logined:
             global LANG
             LANG=language
-            os.system("cp /usr/itis/html/" + theme + " /usr/itis/html/current.css")
+            os.system("sudo cp /usr/itis/html/" + theme + " /usr/itis/html/current.css")
             raise cherrypy.HTTPRedirect("Statussuccess")
         else:
             raise cherrypy.HTTPRedirect("index")
