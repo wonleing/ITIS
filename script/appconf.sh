@@ -43,6 +43,7 @@ grant all privileges on $dr_dbname.* to $dr_dbuser@localhost;
 flush privileges;" | mysql -u $database_uname -p$database_passwd
 
 #Prepare work
+rm -rf /usr/share/wordpress/wp-config.php
 chown -R apache:apache /usr/share/drupal
 chown -R apache:apache /etc/drupal
 cp /etc/drupal/default/default.settings.php /etc/drupal/default/settings.php
@@ -90,7 +91,6 @@ echo "update $wp_dbname.wp_users set user_login='$wp_adminuser' where user_login
 update $wp_dbname.wp_users set user_pass=MD5('$wp_adminpwd');
 update $bz_dbname.profiles set login_name='$bz_adminuser' where login_name='admin@itis.com';
 update $sc_dbname.users set user_hash=MD5('$sc_adminpwd');
-insert into $oh_dbname.hs_hr_users (id,user_name,user_password,is_admin,receive_notification,status,deleted) values ('USR001','$oh_adminuser,MD5('$oh_adminpwd),"Yes","1","Enabled","0");
 update $dp_dbname.users set user_password=md5('$dp_adminpwd') where user_username='admin';
 update $dp_dbname.users set user_username='$dp_adminuser' where user_username='admin';
 insert into $oh_dbname.hs_hr_user_group values ('USG001', 'Admin', '1');
