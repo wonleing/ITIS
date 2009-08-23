@@ -6,21 +6,19 @@ You need to pre-install packages in dependencelist with yum
 Configuration and setup
 ============
 Install:
-./setup.sh
-
-Configure:
-vi /etc/itis/cherrypy.conf to set ITIS http service IP and port.
+sudo ./setup.sh
+This script will auto detect your server's IP address. If you want to change the IP or port manually, please configure /etc/itis/cherrypy.conf.
 
 Start service:
-/etc/init.d/itis start
+sudo service itis start
 
 Use ITIS:
-Use your browser to visit the URL with defined IP and port to manage your Fedora 10 server! The default URL is "http://127.0.0.1:8080"
+Use your browser to visit the URL with defined IP and port to manage your Fedora 10 server! The default URL is "http://<IP>:8080"
 
 
 SVN and git
 =============
-svn co http://storage.linuxce.cn/repos/itis
+svn co http://storage.linuxce.cn/repos/itis/trunk/itisapp/
 git clone git@github.com:wonleing/ITIS.git
 
 
@@ -37,6 +35,13 @@ application.conf  cherrypy.conf  config  initdb.sql  server.conf  sugarcrmconf.p
 others -> MAIN_DIR
 -----------------------
 html  index.py  language  README  script  test
+
+
+Known Bugs
+===============
+1. Wordpress remote access doesn't work perfectly, actually this is a wordpress itself bug
+2. Some Orangehrm functions missed. You can manually install again with http interface to get over it
+3. Some warning in sugarcrm. You can click "repaire" after login or just ignore them...
 
 
 Have Fun!

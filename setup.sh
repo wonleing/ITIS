@@ -1,5 +1,6 @@
 #!/bin/bash
 source etc/itis/config
+serverip=`ifconfig | grep "inet addr" | head -1 | cut -d ":" -f2 | cut -d " " -f1`
 
 ((`id -u` != 0)) && echo "You need to be root!" && exit 1
 rpm -q `cat dependencelist` > /dev/null
@@ -11,5 +12,6 @@ cp -r etc/itis /etc/
 cp -r html index.py language README script test $MAIN_DIR
 cp lib/* $LIB_DIR
 ln -s $MAIN_DIR/script/itis /etc/init.d/itis > /dev/null 2>&1
+sed -i "s/127.0.0.1/$serverip/" /etc/itis/cherrypy.conf
 cat /etc/itis/initdb.sql | sqlite3 /tmp/db > /dev/null 2>&1
 echo -e "Package install successfully!\nPlease use 'service itis start' to start the service\n"
